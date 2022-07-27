@@ -28,7 +28,7 @@ function Online() {
     }
   }, [Ref]);
   return (
-    <>{onlines === true ? <div className="online"></div> : <span></span>}</>
+    <>{onlines === true ? <div className="online" ref={Ref}></div> : <span></span>}</>
   );
 }
 
