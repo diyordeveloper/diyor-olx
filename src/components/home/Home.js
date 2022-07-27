@@ -11,11 +11,22 @@ import { Alert } from "@mui/material";
 import FilterProducts from "../products/FilterProducts";
 import { useAuthContext } from "../../Contexts/AuthContext";
 import firebase from "firebase";
-import { db } from "../../firebase.config";
+import { auth, db } from "../../firebase.config";
 import { toast } from "react-toastify";
 function Home() {
-  const { uid, user } = useAuthContext();
-  const { filteredProducts, products } = useUserContext();
+  //   Uid
+  function GetUserUid() {
+    const [uid, setUid] = useState(null);
+    useEffect(() => {
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          setUid(user.uid);
+        }
+      });
+    }, []);
+    return uid;
+  }
+  const uid = GetUserUid();
   function UserTimeOut() {
     db.collection("users").doc(uid).update({
       timeout: firebase.firestore.FieldValue.serverTimestamp(),
@@ -23,13 +34,13 @@ function Home() {
   }
   useEffect(() => {
     let timer = 0;
-    if (uid !== null) { 
+    if (uid !== null) {
       timer = setInterval(() => {
         UserTimeOut();
-        console.log("update", timer++);
+        console.log("update", timer + 1);
       }, 1000);
     }
-  }, []);
+  });
   return (
     <div className="row">
       <NavFot>
