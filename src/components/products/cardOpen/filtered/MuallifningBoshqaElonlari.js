@@ -32,7 +32,7 @@ function MuallifningBoshqaElonlari({ name }) {
           {products
             .filter((f) => f.name === name)
             .map((itm, idx) => (
-              <SwiperSlide key={idx}>
+              <SwiperSlide  >
                 <div className="col-8   " key={idx}>
                   <div className="card  ">
                     <div className="photo">
