@@ -131,11 +131,11 @@ function BolalardunyosiCard({ id, category }) {
                             <small>
                               Oxirgi marta{" "}
                               <Moment format="D-MMM-YYYY">
-                                {user.timeout?.toDate()}
+                                {user?.timeout?.toDate()}
                               </Moment>
                               {" - "}
                               <Moment format="hh:mm:ss">
-                                {user.timeout?.toDate()}
+                                {user?.timeout?.toDate()}
                               </Moment>{" "}
                               online bo'lgan
                             </small>

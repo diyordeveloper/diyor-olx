@@ -16,17 +16,19 @@ function Online() {
   }
   const uid = GetUserUid();
   const [onlines, setOnlines] = useState(false);
-  function UserTimeOut() {
-    db.collection("users").doc(uid).update({});
-  }
+  
   useEffect(() => {
+    let times = 0
     if (uid !== null) {
       setOnlines(true);
+      setInterval(() => { 
+        console.log("update", times + 1);
+      }, 1000);
     } else {
       setOnlines(false);
     }
   });
-  return <>{onlines === true ? <div className="online"></div>:null}</>;
+  return <>{onlines === true ? <div className="online"></div>:<span></span>}</>;
 }
 
 export default Online;
