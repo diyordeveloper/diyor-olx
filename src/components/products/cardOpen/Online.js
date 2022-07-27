@@ -21,20 +21,14 @@ function Online() {
   const uid = GetUserUid();
   const [onlines, setOnlines] = useState(false);
 
-  useEffect(() => {
-    let times = 0;
-   if(uid === user?.uid){ 
-       if(window.location.reload){
-        setOnlines(true);
-        setInterval(() => {
-          console.log("update", times + 1);
-        }, 1000);
-       }
-      
-   }
-  });
   return (
-    <>{onlines === true ? <div className="online" ref={Ref}></div> : <span></span>}</>
+    <>
+      {onlines === true ? (
+        <div className="online" ref={Ref}></div>
+      ) : (
+        <span></span>
+      )}
+    </>
   );
 }
 

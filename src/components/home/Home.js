@@ -43,7 +43,8 @@ function Home() {
   });
   return (
     <div className="row">
-      <NavFot>
+    
+      <NavFot >
         {uid !== null ? null : (
           <Alert severity="error">
             {" "}
@@ -55,7 +56,7 @@ function Home() {
               Register
             </Link>
           </Alert>
-        )}
+        )} 
         <FilterSearch />
         <FilterCategory />
         {/* {filteredProducts.length > 0 &&  <FilterProducts />} */}
