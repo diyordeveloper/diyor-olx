@@ -1,7 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
 import { auth, db } from "../../../firebase.config";
 import firebase from "firebase";
+import { useAuthContext } from "../../../Contexts/AuthContext";
 function Online() {
+  const { user } = useAuthContext();
+
   const Ref = useRef();
   //   Uid
   function GetUserUid() {
@@ -20,13 +23,16 @@ function Online() {
 
   useEffect(() => {
     let times = 0;
-    if (uid !== null) {
-      setOnlines(true);
-      setInterval(() => {
-        console.log("update", times + 1);
-      }, 1000);
-    }
-  }, [Ref]);
+   if(uid === user?.uid){ 
+       if(window.location.reload){
+        setOnlines(true);
+        setInterval(() => {
+          console.log("update", times + 1);
+        }, 1000);
+       }
+      
+   }
+  });
   return (
     <>{onlines === true ? <div className="online" ref={Ref}></div> : <span></span>}</>
   );
