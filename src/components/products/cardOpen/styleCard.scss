@@ -24,8 +24,20 @@
     border-radius: 5px;
     padding: 10px;
     .avatarka {
+      position: relative;
       width: 80px;
       height: 80px;
+      .online{
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        border-radius: 100px;
+        width: 15px;
+        height: 15px;
+        background: #00f400; 
+        animation: plus 1s linear infinite;
+      }
+       
       img {
         object-fit: cover;
         border-radius: 100px;
@@ -47,5 +59,24 @@
     background: #fff;
     border-radius: 5px;
     padding: 10px;
+  }
+}
+
+
+@keyframes plus {
+  0%{
+    box-shadow:  0 0 0 0   #00f40081 ,0 0 0 0   #00f4000b ;
+  }
+  40%{
+    box-shadow:  0 0 0 5px   #00f4003b ,0 0 0 0   #00f4000b ;
+
+  }
+  80%{
+    box-shadow:  0 0 0 5px   #00f40015 ,0 0 0 2px   #00f4000b ;
+
+  }
+  100%{
+    box-shadow:  0 0 0 5px   #00f40000 ,0 0 0 0   #00f4000b ;
+
   }
 }

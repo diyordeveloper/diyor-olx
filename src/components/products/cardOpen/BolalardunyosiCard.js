@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useUserContext } from "../../../Contexts/Context"; 
+import { useUserContext } from "../../../Contexts/Context";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -12,13 +12,14 @@ import firebase from "firebase";
 import Moment from "react-moment";
 import "./styleCard.scss";
 import { toast } from "react-toastify";
-import { db } from "../../../firebase.config"; 
+import { db } from "../../../firebase.config";
 import { useAuthContext } from "../../../Contexts/AuthContext";
 import Comment from "./filtered/Comment";
+import Online from "./Online";
 function BolalardunyosiCard({ id, category }) {
-  const { products, cardItemCategory,cardItemID } = useUserContext(); 
-  const { user,  uid } = useAuthContext();
- 
+  const { products, cardItemCategory, cardItemID } = useUserContext();
+  const { user, uid } = useAuthContext();
+  
   return (
     <>
       <div className={"d-flex align-items-center "}>
@@ -82,10 +83,10 @@ function BolalardunyosiCard({ id, category }) {
                         <p className="mt-2">{itm.tavsif}</p>
                         <hr />
                         <div className="d-flex align-items-center justify-content-between ">
-                          <small>ID:{" "}{id}</small>
+                          <small>ID: {id}</small>
                         </div>
                       </div>
-                      <Comment itm={itm}   />
+                      <Comment itm={itm} />
                     </div>
                     <div className="col-5">
                       <div className="user">
@@ -101,7 +102,7 @@ function BolalardunyosiCard({ id, category }) {
                                 className={"img-fluid"}
                                 alt="Error"
                               />
-                              <strong></strong>
+                              <Online/>
                             </div>
                           </div>
                           <div className="col-10">
@@ -115,19 +116,36 @@ function BolalardunyosiCard({ id, category }) {
                               </a>
                             </h5>
 
-                            <small>OLXda <Moment format="D-MMM-YYYY">
-                          {itm.timestamp?.toDate()}
-                        </Moment>
-                        {" - "}
-                        <Moment format="hh:mm:ss">
-                          {itm.timestamp?.toDate()}
-                        </Moment> beri</small>
+                            <small>
+                              OLXda{" "}
+                              <Moment format="D-MMM-YYYY">
+                                {itm.timestamp?.toDate()}
+                              </Moment>
+                              {" - "}
+                              <Moment format="hh:mm:ss">
+                                {itm.timestamp?.toDate()}
+                              </Moment>{" "}
+                              beri
+                            </small>
+                            <br />
+                            <small>
+                              Oxirgi marta{" "}
+                              <Moment format="D-MMM-YYYY">
+                                {user.timeout?.toDate()}
+                              </Moment>
+                              {" - "}
+                              <Moment format="hh:mm:ss">
+                                {user.timeout?.toDate()}
+                              </Moment>{" "}
+                              online bo'lgan
+                            </small>
                             <div>
                               <a
                                 href={`tel:${itm.tel}`}
                                 className="btn mt-2 btn-outline-success"
                               >
-                                <PhoneForwardedIcon /> Qo'ng'iroq qilish{" "} {"+"+itm.phone}
+                                <PhoneForwardedIcon /> Qo'ng'iroq qilish{" "}
+                                {"+" + itm.phone}
                               </a>
                             </div>
                             <br />
@@ -141,10 +159,10 @@ function BolalardunyosiCard({ id, category }) {
                         </div>
                       </div>
                       <div className="joylashuv mt-3">
-                        <h5>Joylashuv</h5> 
-                            <h5>
-                              <LocationOnOutlinedIcon /> {itm.joylashuv}
-                            </h5>  
+                        <h5>Joylashuv</h5>
+                        <h5>
+                          <LocationOnOutlinedIcon /> {itm.joylashuv}
+                        </h5>
                       </div>
                       <div className="reklama mt-3">
                         <h5>Bu yerda reklama banner turadi !</h5>
