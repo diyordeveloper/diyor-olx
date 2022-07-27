@@ -1,0 +1,25 @@
+.card_{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    cursor: pointer;
+    &:hover{
+        img{
+            transform: scale(1.05);
+        }
+    }
+    .photo{
+        img{
+            width: 100px;
+            height: 100px;
+            border-radius: 100px; 
+            object-fit: cover;
+            transition: 0.3s;
+        }
+    }
+    .cate_name{
+        margin-top: 5px;
+        text-align: center;
+    }
+}

@@ -1,0 +1,27 @@
+.photos{
+    width: 100%;
+    object-fit: cover;
+    display: flex;
+    justify-content: center;
+    img{
+        height: 150px;
+        object-fit: cover;
+        max-width: 100%;
+    }
+}
+.update_photo{
+    display: flex;
+    margin: 0 auto;
+    background: crimson;
+    color: #fff;
+    border: none;
+    padding: 15px;
+    border-radius: 50%;
+    transition: 0.3s;
+    &:hover{
+        background: red;
+    }
+    .icon_{
+        font-size:30px;
+    }
+}

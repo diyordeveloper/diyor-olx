@@ -1,0 +1,19 @@
+.google_{
+    width: 100%;
+    background: blue;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    transition: 0.3s ;
+    cursor: pointer;
+    &:hover{
+        background: #000075;
+    }
+    .icon_{
+        margin-right: 50px;
+    }
+    span{
+    font-size: 20px;        
+    }
+}
