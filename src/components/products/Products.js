@@ -8,7 +8,8 @@ import { Link, useParams } from "react-router-dom";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import AttachMoneyOutlinedIcon from "@mui/icons-material/AttachMoneyOutlined";
-function Products() { 
+import Likes from "../products/cardOpen/filtered/Likes";
+function Products() {
   const { products, onCardItemClick } = useUserContext();
 
   return (
@@ -32,24 +33,23 @@ function Products() {
                     onClick={() => onCardItemClick(itm)}
                     to={`/card/${itm.category}/${itm.name}/${itm.ID}`}
                   >
-                    <strong>{itm.sarlavha} </strong>
+                    <strong>{itm.sarlavha.substr(0, 80)}... </strong>
                   </Link>
                 </h4>
                 <small className="small">
                   <LocationOnOutlinedIcon /> {itm.joylashuv}
                 </small>
                 <small className="small">
-                  <AccessTimeOutlinedIcon />{" "} 
-                  <Moment   format="D-MMM-YYYY" >{itm.timestamp?.toDate()}</Moment>{" - "} 
-                  <Moment    format="hh:mm:ss"  >{itm.timestamp?.toDate()}</Moment>
+                  <AccessTimeOutlinedIcon />{" "}
+                  <Moment format="D-MMM-YYYY">{itm.timestamp?.toDate()}</Moment>
+                  {" - "}
+                  <Moment format="hh:mm:ss">{itm.timestamp?.toDate()}</Moment>
                 </small>
                 <div className="d-flex align-items-center justify-content-between">
                   <strong>
-                    <AttachMoneyOutlinedIcon /> {itm.narx} so'm{" "}
+                    <AttachMoneyOutlinedIcon /> {itm.narx} {"  "} {itm.valyuta}
                   </strong>
-                  <IconButton>
-                    <FavoriteBorderIcon className="like_icon" />
-                  </IconButton>
+                  <Likes itm={itm} />
                 </div>
               </div>
             </div>

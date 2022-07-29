@@ -1,10 +1,10 @@
 export const Bolalardunyosi = "Bolalar dunyosi";
-export const Elektrjihozlari = "Elektr jihozlari";
-export const Hayvonlar = "Hayvonlar";
-export const Ish = "Ish";
 export const Kochmasmulk = "Ko'chmas mulk";
-export const Modavastil = "Moda va stil";
 export const Transport = "Transport";
+export const Ish = "Ish";
+export const Hayvonlar = "Hayvonlar";
 export const Uyvabog = "Uy va bog'";
+export const Elektrjihozlari = "Elektr jihozlari";
 export const Xizmatlar = "Xizmatlar";
+export const Modavastil = "Moda va stil";
 export const Xobbisport = "Xobbi, sport";

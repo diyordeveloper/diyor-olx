@@ -11,13 +11,26 @@ function BolalarDunyosi() {
   const navigate = useNavigate();
 
   const { currentUser, uid, user } = useAuthContext();
+  const [loader, setLoader] = useState(false);
 
+  const [progress, setProgress] = useState(0);
+  const [sarlavha, setSarlavha] = useState("");
   const [images, setImages] = useState(null);
   const [urls, setUrls] = useState([]);
-  const [progress, setProgress] = useState(0);
-  const [loader, setLoader] = useState(false);
-  const types = ["image/jpg", "image/jpeg", "image/png", "image/PNG"];
+  const [tavsif, setTavsif] = useState("");
+  const [narx, setNarx] = useState("");
+  const [valyuta, setValyuta] = useState("");
+  const [xususiyYokiBiznes, setXususiyYokiBiznes] = useState("");
+  const [holati, setHolati] = useState("");
+  const [razmer, setRazmer] = useState("");
 
+  const [joylashuv, setJoylashuv] = useState("");
+  // Contact
+  const [name, setName] = useState(`${user?.name}`);
+  const [email, setEmail] = useState(`${user?.email}`);
+  const [phone, setPhone] = useState(`${user?.phone}`);
+
+  const types = ["image/jpg", "image/jpeg", "image/png", "image/PNG"];
   const handleChangeImages = (e) => {
     let selectedFile = e.target.files[0];
     if (selectedFile) {
@@ -30,33 +43,13 @@ function BolalarDunyosi() {
       console.log("please select your file");
     }
   };
-
+  console.log(images);
   const onSubmitForm = (e) => {
     e.preventDefault();
     setLoader(true);
-    const sarlavha = e.target[0].value;
-    const photo = e.target[1].value;
-    const tavsif = e.target[2].value;
-    const narx = e.target[3].value;
-    // Qo'shimcha malumotlar
-    const xususiyyokibiznes = e.target[4].value;
-    const holati = e.target[5].value;
-    // Aloqa uchun malumotlar
-    const joylashuv = e.target[6].value;
-    const name = e.target[7].value;
-    const email = e.target[8].value;
-    const phone = e.target[9].value;
-    const promises = [];
 
-    if (
-      (sarlavha !== "",
-      photo !== "",
-      tavsif !== "",
-      narx !== "",
-      xususiyyokibiznes !== "",
-      holati !== "",
-      joylashuv !== "")
-    ) {
+    const promises = [];
+    if (sarlavha !== "") {
       const uploadTask = storage
         .ref(
           `bolalardunyosi/${
@@ -85,26 +78,26 @@ function BolalarDunyosi() {
             )
             .child(images.name)
             .getDownloadURL()
-            .then((ImageUrl) => {
-              setUrls((prevState) => [...prevState, ImageUrl]);
-              // All
-              const docRef = db.collection("allproducts");
-
-              docRef
+            .then((url) => {
+              const Ref = db
+                .collection("allproducts")
                 .add({
-                  category: Bolalardunyosi,
-                  sarlavha,
-                  url: firebase.firestore.FieldValue.arrayUnion(ImageUrl),
-                  tavsif,
-                  narx: Number(narx),
-                  xususiyyokibiznes,
-                  holati,
-                  joylashuv,
+                  filterID: v4(),
                   useruid: uid,
+                  sarlavha,
+                  tavsif,
+                  category: Bolalardunyosi,
+                  narx,
+                  valyuta,
+                  xususiyYokiBiznes,
+                  holati,
+                  razmer,
+                  joylashuv,
                   name,
                   email,
-                  phone: Number(phone),
+                  phone,
                   timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                  url,
                 })
                 .then((res) => {
                   console.log(res);
@@ -122,6 +115,7 @@ function BolalarDunyosi() {
         }
       );
     } else {
+      // setLoader(false);
       toast.error("Maydonni to'ldiring");
     }
   };
@@ -129,7 +123,14 @@ function BolalarDunyosi() {
   return (
     <div className="col-12">
       <h2 className="text-center">Bolalar Dunyosi</h2>
-      <form id="addformbolalardunyosi" onSubmit={onSubmitForm}>
+      <h5 className="text-center">
+        Hozircha faqat kiyimlarni e'lon bera olasiz
+      </h5>
+      <form
+        id="addformbolalardunyosi"
+        className="was-validated"
+        onSubmit={onSubmitForm}
+      >
         <div className="mt-4">
           <label htmlFor="title" className="">
             Sarlavhani kiriting*
@@ -137,8 +138,13 @@ function BolalarDunyosi() {
           <input
             type="text"
             id="title"
+            onChange={(e) => setSarlavha(e.target.value)}
+            value={sarlavha}
             className="form-control mt-1"
             placeholder="Masalan, Bolalar oq ko'ylagi"
+            minLength={20}
+            maxLength={100}
+            required
           />
         </div>
         <div className="mt-4">
@@ -153,83 +159,144 @@ function BolalarDunyosi() {
             className="form-control mt-2"
             // multiple
             onChange={handleChangeImages}
+            required
           />
         </div>
         <div className="mt-4">
           <label htmlFor="tavsif">Tavsif*</label>
           <textarea
             className="mt-2 form-control"
+            onChange={(e) => setTavsif(e.target.value)}
+            value={tavsif}
             maxLength={900}
+            minLength={80}
             rows={5}
             placeholder="O’zingizni shu e'lonni ko’rayotgan odam o’rniga qo’ying va tavsif yozing"
+            required
           ></textarea>
           <div className="mt-2 d-flex align-items-center justify-content-between">
             <small>Kamida 80 ta belgi yozing</small>
-            <small>0/9000</small>
+            <small>{tavsif.length}/9000</small>
           </div>
         </div>
         <div className="mt-4">
           <label htmlFor="narx">Narx*</label>
-          <input
-            type="number"
-            id="narx"
-            className="form-control mt-2"
-            placeholder="Narxini kiriting"
-          />
+          <div className="row align-items-center mt-2">
+            <div className="col-10">
+              <input
+                type={"text"}
+                onChange={(e) => setNarx(e.target.value)}
+                value={narx}
+                id="narx"
+                className="form-control "
+                placeholder="Narxini kiriting"
+                required
+              />
+            </div>
+            <div className="col-2">
+              <select
+                onChange={(e) => setValyuta(e.target.value)}
+                className="form-select form-select"
+                aria-label="form-select example"
+                id="xususiy"
+                required
+              >
+                <option value="">so'm yoki y.e</option>
+
+                <option value="so'm">so'm</option>
+                <option value="y.e">y.e</option>
+              </select>
+            </div>
+          </div>
         </div>
         <h5 className="mt-4">Qo'shimcha ma'lumot</h5>
         <div className="mt-4">
           <label htmlFor="xususiy">Xususiy yoki biznes*</label>
-          <select id="xususiy" className="form-control mt-2">
+          <select
+            onChange={(e) => setXususiyYokiBiznes(e.target.value)}
+            className="form-select form-select"
+            aria-label="form-select example"
+            id="xususiy"
+            required
+          >
+            <option value="">Tanlang . . .</option>
             <option value="Jismoniy shaxs">Jismoniy shaxs</option>
             <option value="Biznes">Biznes</option>
           </select>
         </div>
         <div className="mt-4">
-          <label htmlFor="xususiy">Holati*</label>
-          <select id="xususiy" className="form-control mt-2">
-            <option value="Jismoniy shaxs">F/b</option>
-            <option value="Biznes">Yangi</option>
+          <label htmlFor="holati">Holati*</label>
+          <select
+            onChange={(e) => setHolati(e.target.value)}
+            className="form-select form-select"
+            aria-label="form-select example"
+            id="holati"
+            required
+          >
+            <option value="">Tanlang . . .</option>
+            <option value="F/b">F/b</option>
+            <option value="Yangi">Yangi</option>
           </select>
+        </div>
+        <div className="mt-4">
+          <label htmlFor="razmer">O'lcham*</label>
+          <input
+            type={"number"}
+            onChange={(e) => setRazmer(e.target.value)}
+            value={razmer}
+            id="razmer"
+            className="form-control mt-2"
+            placeholder="O'lchamni kiriting"
+            required
+          />
         </div>
         <h5 className="mt-4">Aloqa uchun ma'lumotlar</h5>
         <div className="mt-4">
           <label htmlFor="xususiy">Joylashuv*</label>
           <input
             type="text"
+            onChange={(e) => setJoylashuv(e.target.value)}
+            value={joylashuv}
             id="joylashuv"
             className="form-control mt-2"
             placeholder="Shahar yoki pochta indeksi"
+            required
           />
         </div>
         <div className="mt-4">
           <label htmlFor="firstname">Murojaat qiluvchi shaxs*</label>
           <input
-            defaultValue={user?.name}
+            onChange={(e) => setName(e.target.value)}
+            value={name}
             type="text"
             id="firstname"
             className="form-control mt-2"
             placeholder="Odamlar sizga qanday murojat qilishlari kerak ?"
+            required
           />
         </div>
         <div className="mt-4">
           <label htmlFor="email">Email-manzil*</label>
           <input
-            defaultValue={user?.email}
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
             type="email"
             id="email"
             className="form-control mt-2"
             placeholder="Email manzilingizni kiriting"
+            required
           />
         </div>
         <div className="mt-4">
           <label htmlFor="phone">Telefon raqami*</label>
           <input
-            defaultValue={user?.phone}
-            type="number"
+            onChange={(e) => setPhone(e.target.value)}
+            value={phone}
+            type="text"
             id="phone"
             className="form-control mt-2"
             placeholder="Telefon raqamingiz"
+            required
           />
         </div>
 
@@ -246,11 +313,7 @@ function BolalarDunyosi() {
           </div>
         </div>
 
-        <button
-          disabled={!images}
-          className="btn btn-success mt-4"
-          form="addformbolalardunyosi"
-        >
+        <button className="btn btn-success mt-4" form="addformbolalardunyosi">
           {loader ? <Spinner animation="border" size="sm" /> : "Joylashtirish"}
         </button>
       </form>

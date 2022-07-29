@@ -89,7 +89,7 @@ function Havvonlar() {
                   
                   category: Hayvonlar,
                   sarlavha,
-                  url: firebase.firestore.FieldValue.arrayUnion(ImageUrl),
+                  url: ImageUrl ,
                   tavsif,
                   narx: Number(narx),
                   xususiyyokibiznes,

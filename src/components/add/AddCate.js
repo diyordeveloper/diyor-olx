@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-import { v4 } from "uuid";
 import { storage,db } from "../../firebase.config";
 
 function AddCate() {
@@ -44,7 +43,6 @@ function AddCate() {
             .then((url) => {
               db.collection("categories")
                 .add({
-                  id: v4(),
                   category,
                   url,
                 })

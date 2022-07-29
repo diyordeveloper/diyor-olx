@@ -35,16 +35,15 @@ function Home() {
   useEffect(() => {
     let timer = 0;
     if (uid !== null) {
-      timer = setInterval(() => {
-        UserTimeOut();
-        console.log("update", timer + 1);
-      }, 1000);
+      // timer = setInterval(() => {
+      UserTimeOut();
+      console.log("update", timer + 1);
+      // }, 1000);
     }
   });
   return (
     <div className="row">
-    
-      <NavFot >
+      <NavFot>
         {uid !== null ? null : (
           <Alert severity="error">
             {" "}
@@ -56,7 +55,7 @@ function Home() {
               Register
             </Link>
           </Alert>
-        )} 
+        )}
         <FilterSearch />
         <FilterCategory />
         {/* {filteredProducts.length > 0 &&  <FilterProducts />} */}

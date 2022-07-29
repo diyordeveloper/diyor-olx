@@ -34,7 +34,7 @@ function App() {
             <Route element={<Elon />} path="/elon" />
             <Route element={<AddCate />} path="/addcate" />
             <Route element={<UserElon />} path="/userelon" />
-            <Route element={<AllCard />} path="/card/:category/:name/:id" />
+            <Route element={<AllCard />} path="/card/:category/:name/:ID" />
           </Routes>
         </AuthContextUser>
         </Context>

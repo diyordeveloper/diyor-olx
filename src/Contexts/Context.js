@@ -25,23 +25,9 @@ export function Context({ children }) {
       }
     }
   };
+
   // Category
-  const [categories, setCategories] = useState([]);
-  const getCategory = async () => {
-    const categories = await db.collection("categories").get();
-    const categoriesArray = [];
-    for (var snap of categories.docs) {
-      var data = snap.data();
-      data.ID = snap.id;
-      categoriesArray.push({
-        ...data,
-      });
-      if (categoriesArray.length === categories.docs.length) {
-        setCategories(categoriesArray);
-      }
-    }
-  };
-   
+
   // reklama bannerni olib kelish
   const [banner, setBanner] = useState([]);
   const getBanner = async () => {
@@ -61,22 +47,18 @@ export function Context({ children }) {
   useEffect(() => {
     getProducts();
     getBanner();
-    getCategory(); 
   }, []);
 
-
-
-  // 
-  const [cardItemCategory, setCardItemCategory] = useState(""); 
-   function onCardItemClick(itm){
-    setCardItemCategory(itm.category)   
-      db.collection("allproducts")
-        .doc(itm.ID)
-        .set(itm)
-        .then(() => {
-          console.log("successfully added to cart");
-        }); 
-   }
+  // Cardni bosganda ID chiqarib berish 
+  function onCardItemClick(itm) {
+    db.collection("allproducts")
+      .doc(itm.ID)
+      .update(itm)
+      .then(() => {
+        console.log("ID ADDDD" + itm.ID);
+        
+      });
+  }
   // Filter
   const [active_category, setActive_Category] = useState("");
   const [category, setCategory] = useState("");
@@ -102,12 +84,9 @@ export function Context({ children }) {
     setActive_Category("");
     setCategory("");
   };
-   console.log(cardItemCategory);
   const AllFunction = {
     products,
     banner,
-    categories, 
-    cardItemCategory, 
     // Category Filter Home Page
     onCardItemClick,
     filteredProducts,

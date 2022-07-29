@@ -2,42 +2,44 @@ import React, { useRef, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useUserContext } from "../../../../Contexts/Context";
-// import required modules
-import { Pagination, Navigation } from "swiper";
-import Moment from "react-moment";
 
-import { Link } from "react-router-dom"; 
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { IconButton } from "@mui/material";
-import './styleElon.scss'
-function ShungaOxshashElonlar( ) {
-  const { products, onCardItemClick,cardItemCategory } = useUserContext();
+// import required modules
+import { Navigation } from "swiper";
+import Moment from "react-moment";
+import { Link } from "react-router-dom";
+import "./styleElon.scss";
+import Likes from "./Likes";
+function ShungaOxshashElonlar({ category, }) {
+  const { products ,onCardItemClick} = useUserContext();
+  function ClikcItmId(itm){
+    onCardItemClick(itm)
+    window.location.reload(true)
+  }
   return (
     <div className="col-12 boshqaElonlar">
       <div className="row">
-        <h4>O'xshash e'lonlar   </h4>
+        <h4>O'xshash e'lonlar </h4>
+        <hr />
         <Swiper
-          slidesPerView={3}
-          spaceBetween={30}
-          slidesPerGroup={3}
-          loop={true}
+          slidesPerView={5}
+          slidesPerGroup={1}
           loopFillGroupWithBlank={true}
           pagination={{
             clickable: true,
           }}
           navigation={true}
-          modules={[Pagination, Navigation]}
+          modules={[Navigation]}
           className="mySwiper"
         >
           {products
-            .filter((f) => f.category === cardItemCategory)
+            .filter((f) => f.category === category)
             .map((itm, idx) => (
               <SwiperSlide key={idx}>
-                <div className="col-8   " key={idx}>
+                <div className="col-11   " key={idx}>
                   <div className="card  ">
                     <div className="photo">
                       <Link
-                        onClick={() => onCardItemClick(itm)}
+                        onClick={() => ClikcItmId(itm)}
                         to={`/card/${itm.category}/${itm.name}/${itm.ID}`}
                       >
                         <img
@@ -50,17 +52,14 @@ function ShungaOxshashElonlar( ) {
                     <div className="context_">
                       <h4 className="sarlavha">
                         <Link
-                          onClick={() => onCardItemClick(itm)}
+                          onClick={() => ClikcItmId(itm)}
                           to={`/card/${itm.category}/${itm.name}/${itm.ID}`}
                         >
-                          <small>{itm.sarlavha} </small>
+                          <small>{itm.sarlavha.substr(0, 80)}... </small>
                         </Link>
                       </h4>
+                      <small className="small">{itm.joylashuv}</small>
                       <small className="small">
-                        {itm.joylashuv}
-                      </small>
-                      <small className="small">
-                       
                         <Moment format="D-MMM-YYYY">
                           {itm.timestamp?.toDate()}
                         </Moment>
@@ -71,11 +70,9 @@ function ShungaOxshashElonlar( ) {
                       </small>
                       <div className="d-flex align-items-center justify-content-between">
                         <small>
-                          {itm.narx} so'm{" "}
+                          {itm.narx} {"  "} {itm.valyuta}
                         </small>
-                        <IconButton>
-                          <FavoriteBorderIcon className="like_icon" />
-                        </IconButton>
+                        <Likes itm={itm} />
                       </div>
                     </div>
                   </div>

@@ -3,14 +3,14 @@ import Modal from "react-bootstrap/Modal";
 import { useUserContext } from "../../Contexts/Context";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Spinner from "react-bootstrap/Spinner"; 
+import {categories} from '../category/categories'
 function ModalCategory({
   showModal,
   toggleModal,
   onShowForm,
   showForm,
   onCategoryItm,
-}) {
-  const { categories } = useUserContext();
+}) { 
 
   return (
     <Modal show={showModal} onHide={toggleModal} size={"lg"}>

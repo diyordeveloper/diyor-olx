@@ -12,67 +12,32 @@ import UyBog from "./elonlar/UyBog";
 import Xizmatlar from "./elonlar/Xizmatlar";
 import XobbiSport from "./elonlar/XobbiSport";
 import ModalCategory from "./ModalCategory";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import NavFot from "../navfot/NavFot";
-const bg_color_category = [
-  {
-    id: 1,
-    color: "#ffce32",
-  },
-  {
-    id: 2,
-    color: "#3a77ff",
-  },
-  {
-    id: 3,
-    color: "#23e5db",
-  },
-  {
-    id: 4,
-    color: "#ff5636",
-  },
-  {
-    id: 5,
-    color: "#fff6d9",
-  },
-  {
-    id: 6,
-    color: "#ceddff",
-  },
-  {
-    id: 7,
-    color: "#c8f8f6",
-  },
-  {
-    id: 8,
-    color: "#ffd6c9",
-  },
-  {
-    id: 9,
-    color: "#ffce32",
-  },
-  {
-    id: 10,
-    color: "#ceddff",
-  },
-  {
-    id: 11,
-    color: "#c8f8f6",
-  },
-  {
-    id: 12,
-    color: "#ffd6c9",
-  },
-];
+import { toast } from "react-toastify";
+import { useAuthContext } from "../../Contexts/AuthContext";
+import { Link, useNavigate } from "react-router-dom";
+import { IconButton } from "@mui/material";
+
 
 function Elon() {
   const {} = useUserContext();
+  const { user, currentUser, logout, uid } = useAuthContext();
+  const navigate = useNavigate();
+
   const [showForm, setShowForm] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const [cateItm, setCateItm] = useState([]);
 
   function toggleModal() {
     setShowModal(!showModal);
+    if (user?.avatarimg === undefined) {
+      toast.warning("Profilga rasm qo'ymagansiz !");
+      navigate("/profil");
+    } else {
+      toggleModal();
+    }
   }
   function onShowForm(id) {
     setShowForm(id);
@@ -94,6 +59,14 @@ function Elon() {
   return (
     <NavFot>
       <div className="row  ">
+      <Link to={"/"} className="text_dec_none">
+          <IconButton>
+            <ArrowBackIcon />
+          </IconButton>
+          Orqaga
+          {" / "}
+          E'lon
+        </Link>
         <div className="col-8 offset-2 ">
           <h2 className="text-center">E’lon joylashtirish</h2>
           <h3 className="text-center">
@@ -102,12 +75,13 @@ function Elon() {
           <hr className="mt-4 mb-2" />
 
           <div className="row mt-3">
-            <label htmlFor="" onClick={toggleModal}>
+            <label htmlFor="rukn" onClick={toggleModal}>
               Rukn*
             </label>
             <div className="col-6  ">
               {cateItm.length === 0 ? (
                 <button
+                id="rukn"
                   className="btn btn-success mt-3 mb-3 pt-3 pb-3 "
                   onClick={toggleModal}
                 >
@@ -156,34 +130,34 @@ function Elon() {
             {cateItm.length === 0 ? null : (
               <>
                 <div className={showForm === 1 ? "" : "d-none"}>
-                  <Havvonlar />
+                  <BolalarDunyosi />
                 </div>
                 <div className={showForm === 2 ? "" : "d-none"}>
-                  <Transport />
-                </div>
-                <div className={showForm === 3 ? "" : "d-none"}>
-                  <Xizmatlar />
-                </div>
-                <div className={showForm === 4 ? "" : "d-none"}>
-                  <ElektrJihozlari />
-                </div>
-                <div className={showForm === 5 ? "" : "d-none"}>
-                  <Ish />
-                </div>
-                <div className={showForm === 6 ? "" : "d-none"}>
-                  <XobbiSport />
-                </div>
-                <div className={showForm === 7 ? "" : "d-none"}>
-                  <UyBog />
-                </div>
-                <div className={showForm === 8 ? "" : "d-none"}>
-                  <ModaStil />
-                </div>
-                <div className={showForm === 9 ? "" : "d-none"}>
                   <KochmasMulk />
                 </div>
+                <div className={showForm === 3 ? "" : "d-none"}>
+                  <Transport />
+                </div>
+                <div className={showForm === 4 ? "" : "d-none"}>
+                  <Ish />
+                </div>
+                <div className={showForm === 5 ? "" : "d-none"}>
+                  <Havvonlar />
+                </div>
+                <div className={showForm === 6 ? "" : "d-none"}>
+                  <UyBog />
+                </div>
+                <div className={showForm === 7 ? "" : "d-none"}>
+                  <ElektrJihozlari />
+                </div>
+                <div className={showForm === 8 ? "" : "d-none"}>
+                  <Xizmatlar />
+                </div>
+                <div className={showForm === 9 ? "" : "d-none"}>
+                  <ModaStil />
+                </div>
                 <div className={showForm === 10 ? "" : "d-none"}>
-                  <BolalarDunyosi />
+                  <XobbiSport />
                 </div>
               </>
             )}
