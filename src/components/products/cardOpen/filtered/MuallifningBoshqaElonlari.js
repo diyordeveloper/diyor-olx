@@ -12,7 +12,7 @@ function MuallifningBoshqaElonlari({  name }) {
   const { products,onCardItemClick } = useUserContext();
     function ClikcItmId(itm){
       onCardItemClick(itm)
-      window.location.reload(true)
+      window.location.reload(false)
     }
   return (
     <div className="col-12 boshqaElonlar">

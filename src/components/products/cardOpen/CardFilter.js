@@ -341,10 +341,10 @@ function CardFilter({ ID, location, category, cardArr }) {
                           {cardArr.qoshimchaOptsiyalar + " "}
                         </p>
                       </li>
-                    )} 
+                    )}
                   </>
-                    {/* Ish */}
-                    <>
+                  {/* Ish */}
+                  <>
                     {cardArr.taklifQilayabsizmiQidirayabszmi && (
                       <li>
                         <p className="elon_btn mt-2  btn-sm mar-r">
@@ -382,55 +382,51 @@ function CardFilter({ ID, location, category, cardArr }) {
                           value={cardArr.rezyumeLink}
                         />
                       </li>
-                    )}</>
-                    {/* Hayvonlar */}
-                    {cardArr.hayvonTuri && (
-                      <li>
-                        <p className="elon_btn mt-2  btn-sm mar-r">
-                          hayvon turi:{"  "}{" "}
-                          {cardArr.hayvonTuri + " "}
-                        </p>
-                      </li>
                     )}
-                    {cardArr.hayvonZoti && (
-                      <li>
-                        <p className="elon_btn mt-2  btn-sm mar-r">
-                          hayvon zoti:{"  "}{" "}
-                          {cardArr.hayvonZoti + " "}
-                        </p>
-                      </li>
-                    )}
-                    
-                    {/* Uyva Bog' */}
-                    <>
+                  </>
+                  {/* Hayvonlar */}
+                  {cardArr.hayvonTuri && (
+                    <li>
+                      <p className="elon_btn mt-2  btn-sm mar-r">
+                        hayvon turi:{"  "} {cardArr.hayvonTuri + " "}
+                      </p>
+                    </li>
+                  )}
+                  {cardArr.hayvonZoti && (
+                    <li>
+                      <p className="elon_btn mt-2  btn-sm mar-r">
+                        hayvon zoti:{"  "} {cardArr.hayvonZoti + " "}
+                      </p>
+                    </li>
+                  )}
+
+                  {/* Uyva Bog' */}
+                  <>
                     {cardArr.mebelTuri && (
                       <li>
                         <p className="elon_btn mt-2  btn-sm mar-r">
-                          Mebel turi:{"  "}{" "}
-                          {cardArr.mebelTuri + " "}
+                          Mebel turi:{"  "} {cardArr.mebelTuri + " "}
                         </p>
                       </li>
                     )}
                     {cardArr.qaysiXonaUchun && (
                       <li>
                         <p className="elon_btn mt-2  btn-sm mar-r">
-                          Xona:{"  "}{" "}
-                          {cardArr.qaysiXonaUchun + " "}
-                        </p>
-                      </li>
-                    )}</>
-                    {/* Elektr jihozlari */}
-                    <>
-                    {
-                    cardArr.marka && (
-                      <li>
-                        <p className="elon_btn mt-2  btn-sm mar-r">
-                         Marka:{"  "}{" "}
-                          {cardArr.marka + " "}
+                          Xona:{"  "} {cardArr.qaysiXonaUchun + " "}
                         </p>
                       </li>
                     )}
-                    </>
+                  </>
+                  {/* Elektr jihozlari */}
+                  <>
+                    {cardArr.marka && (
+                      <li>
+                        <p className="elon_btn mt-2  btn-sm mar-r">
+                          Marka:{"  "} {cardArr.marka + " "}
+                        </p>
+                      </li>
+                    )}
+                  </>
                 </ul>
                 <h3 className="mt-3"> Tavsif</h3>
                 <p className="mt-2">{cardArr.tavsif}</p>

@@ -20,7 +20,7 @@ function XobbiDamOlish() {
   const [narx, setNarx] = useState("");
   const [valyuta, setValyuta] = useState("");
   const [xususiyYokiBiznes, setXususiyYokiBiznes] = useState("");
-  const [holati, setHolati] = useState(""); 
+  const [holati, setHolati] = useState("");
 
   const [joylashuv, setJoylashuv] = useState("");
   // Contact
@@ -50,9 +50,9 @@ function XobbiDamOlish() {
     if (sarlavha !== "") {
       const uploadTask = storage
         .ref(
-          `Xobbisport/${
-            user?.name + " - " + user?.phone + " - " + user?.uid
-          }/${images.name}`
+          `Xobbisport/${user?.name + " - " + user?.phone + " - " + user?.uid}/${
+            images.name
+          }`
         )
         .put(images);
       promises.push(uploadTask);
@@ -88,7 +88,7 @@ function XobbiDamOlish() {
                   narx,
                   valyuta,
                   xususiyYokiBiznes,
-                  holati, 
+                  holati,
                   joylashuv,
                   name,
                   email,
@@ -234,7 +234,7 @@ function XobbiDamOlish() {
             <option value="F/b">F/b</option>
             <option value="Yangi">Yangi</option>
           </select>
-        </div> 
+        </div>
         <h5 className="mt-4">Aloqa uchun ma'lumotlar</h5>
         <div className="mt-4">
           <label htmlFor="xususiy">Joylashuv*</label>

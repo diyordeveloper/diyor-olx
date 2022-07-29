@@ -45,7 +45,7 @@ function Home() {
   });
   return (
     <>
-      {products.length === 0 ? (
+      {products.length !== 0 ? (
         <Loading />
       ) : (
         <div className="row">
