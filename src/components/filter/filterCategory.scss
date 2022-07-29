@@ -10,10 +10,11 @@
         }
     }
     .photo{
+        padding: 18px;
+        border-radius: 100px;  
         img{
-            width: 100px;
-            height: 100px;
-            border-radius: 100px; 
+            width: 80px;
+            height: 80px;
             object-fit: cover;
             transition: 0.3s;
         }

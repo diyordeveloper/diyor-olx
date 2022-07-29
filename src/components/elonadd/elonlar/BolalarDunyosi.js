@@ -16,7 +16,6 @@ function BolalarDunyosi() {
   const [progress, setProgress] = useState(0);
   const [sarlavha, setSarlavha] = useState("");
   const [images, setImages] = useState(null);
-  const [urls, setUrls] = useState([]);
   const [tavsif, setTavsif] = useState("");
   const [narx, setNarx] = useState("");
   const [valyuta, setValyuta] = useState("");

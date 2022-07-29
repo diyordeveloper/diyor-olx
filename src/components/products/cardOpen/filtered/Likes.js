@@ -20,7 +20,7 @@ function Likes({ itm }) {
     for (var snap of likesArr.docs) {
       var data = snap.data();
       data.ID = snap.id;
-      likesArrArray.push({
+      likesArrArray.unshift({
         ...data,
       });
       if (likesArrArray.length === likesArr.docs.length) {

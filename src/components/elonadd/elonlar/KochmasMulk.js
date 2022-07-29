@@ -384,8 +384,6 @@ function KochmasMulk() {
   return (
     <div className="col-12">
       <h2 className="text-center">Ko'chmas mulk</h2>
-      {/* <input type={"checkbox"} name={"tool"} onChange={onchanges} value={chek} />{chek}
-      <input type={"checkbox"} name={"tool"} onChange={onchanges} value={chek2} />{chek2} */}
 
       <h5 className="text-center">
         Hozircha faqat xususiy uylarni e'lon bera olasiz

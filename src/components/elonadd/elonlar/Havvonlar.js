@@ -7,15 +7,29 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import firebase from "firebase";
 import { Hayvonlar } from "../../../Contexts/ArrCatories";
-function Havvonlar() {
-  const navigate = useNavigate(); 
-  const { currentUser, uid, user } = useAuthContext(); 
-  const [images, setImages] = useState(null);
-  const [urls, setUrls] = useState([]);
-  const [progress, setProgress] = useState(0);
-  const [loader, setLoader] = useState(false);
-  const types = ["image/jpg", "image/jpeg", "image/png", "image/PNG"];
+function Hayvonchiklar() {
+  const navigate = useNavigate();
 
+  const { currentUser, uid, user } = useAuthContext();
+  const [loader, setLoader] = useState(false);
+
+  const [progress, setProgress] = useState(0);
+  const [sarlavha, setSarlavha] = useState("");
+  const [images, setImages] = useState(null);
+  const [tavsif, setTavsif] = useState("");
+  const [narx, setNarx] = useState("");
+  const [valyuta, setValyuta] = useState("");
+  const [xususiyYokiBiznes, setXususiyYokiBiznes] = useState("");
+  const [hayvonTuri, setHayvonTuri] = useState("");
+  const [hayvonZoti, setHayvonZoti] = useState("");
+
+  const [joylashuv, setJoylashuv] = useState("");
+  // Contact
+  const [name, setName] = useState(`${user?.name}`);
+  const [email, setEmail] = useState(`${user?.email}`);
+  const [phone, setPhone] = useState(`${user?.phone}`);
+
+  const types = ["image/jpg", "image/jpeg", "image/png", "image/PNG"];
   const handleChangeImages = (e) => {
     let selectedFile = e.target.files[0];
     if (selectedFile) {
@@ -28,36 +42,16 @@ function Havvonlar() {
       console.log("please select your file");
     }
   };
-
+  console.log(images);
   const onSubmitForm = (e) => {
     e.preventDefault();
     setLoader(true);
-    const sarlavha = e.target[0].value;
-    const photo = e.target[1].value;
-    const tavsif = e.target[2].value;
-    const narx = e.target[3].value;
-    // Qo'shimcha malumotlar
-    const xususiyyokibiznes = e.target[4].value;
-    const itzoti = e.target[5].value;
-    // Aloqa uchun malumotlar
-    const joylashuv = e.target[6].value;
-    const name = e.target[7].value;
-    const email = e.target[8].value;
-    const phone = e.target[9].value;
-    const promises = [];
 
-    if (
-      (sarlavha !== "",
-      photo !== "",
-      tavsif !== "",
-      narx !== "",
-      xususiyyokibiznes !== "",
-      itzoti !== "",
-      joylashuv !== ""  )
-    ) {
+    const promises = [];
+    if (sarlavha !== "") {
       const uploadTask = storage
         .ref(
-          `hayvonlar/${user?.name + " - " + user?.phone + " - " + user?.uid}/${
+          `Hayvonlar/${user?.name + " - " + user?.phone + " - " + user?.uid}/${
             images.name
           }`
         )
@@ -77,28 +71,32 @@ function Havvonlar() {
         async () => {
           await storage
             .ref(
-              `hayvonlar/${user?.name + " - " + user?.phone + " - " + user?.uid}`
+              `Hayvonlar/${
+                user?.name + " - " + user?.phone + " - " + user?.uid
+              }`
             )
             .child(images.name)
             .getDownloadURL()
-            .then((ImageUrl) => {
-              setUrls((prevState) => [...prevState, ImageUrl]);
-              // All
-              db.collection("allproducts")
+            .then((url) => {
+              const Ref = db
+                .collection("allproducts")
                 .add({
-                  
-                  category: Hayvonlar,
+                  filterID: v4(),
+                  useruid: uid,
                   sarlavha,
-                  url: ImageUrl ,
                   tavsif,
-                  narx: Number(narx),
-                  xususiyyokibiznes,
-                  itzoti,
+                  category: Hayvonlar,
+                  narx,
+                  valyuta,
+                  xususiyYokiBiznes,
+                  hayvonTuri,
+                  hayvonZoti,
                   joylashuv,
                   name,
                   email,
-                  phone: Number(phone),
+                  phone,
                   timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                  url,
                 })
                 .then((res) => {
                   console.log(res);
@@ -116,16 +114,22 @@ function Havvonlar() {
         }
       );
     } else {
+      // setLoader(false);
       toast.error("Maydonni to'ldiring");
-      setLoader(false);
     }
-    
   };
 
   return (
     <div className="col-12">
-      <h2 className="text-center">Hayvonlar</h2>
-      <form id="addformhayvonlar" onSubmit={onSubmitForm}>
+      <h2 className="text-center">Hayvonlar </h2>
+      <h5 className="text-center">
+        Hozircha faqat hayvonlar e'lon bera olasiz
+      </h5>
+      <form
+        id="addformHayvonlar"
+        className="was-validated"
+        onSubmit={onSubmitForm}
+      >
         <div className="mt-4">
           <label htmlFor="title" className="">
             Sarlavhani kiriting*
@@ -133,8 +137,13 @@ function Havvonlar() {
           <input
             type="text"
             id="title"
+            onChange={(e) => setSarlavha(e.target.value)}
+            value={sarlavha}
             className="form-control mt-1"
-            placeholder="Masalan, Nemis ovcharkasi"
+            placeholder="Masalan, Bolalar oq ko'ylagi"
+            minLength={20}
+            maxLength={100}
+            required
           />
         </div>
         <div className="mt-4">
@@ -142,166 +151,149 @@ function Havvonlar() {
             Rasmlar*
           </label>
           <br />
-          <small>
-            Hozrcha faqat bitta rasm joylay olasiz !
-          </small>
+          <small>Hozrcha faqat bitta rasm joylay olasiz !</small>
           <input
             type="file"
             id="file"
             className="form-control mt-2"
             // multiple
             onChange={handleChangeImages}
+            required
           />
         </div>
         <div className="mt-4">
           <label htmlFor="tavsif">Tavsif*</label>
           <textarea
             className="mt-2 form-control"
+            onChange={(e) => setTavsif(e.target.value)}
+            value={tavsif}
             maxLength={900}
+            minLength={80}
             rows={5}
             placeholder="O’zingizni shu e'lonni ko’rayotgan odam o’rniga qo’ying va tavsif yozing"
+            required
           ></textarea>
           <div className="mt-2 d-flex align-items-center justify-content-between">
             <small>Kamida 80 ta belgi yozing</small>
-            <small>0/9000</small>
+            <small>{tavsif.length}/9000</small>
           </div>
         </div>
         <div className="mt-4">
           <label htmlFor="narx">Narx*</label>
-          <input
-            type="number"
-            id="narx"
-            className="form-control mt-2"
-            placeholder="Narxini kiriting"
-          />
+          <div className="row align-items-center mt-2">
+            <div className="col-10">
+              <input
+                type={"text"}
+                onChange={(e) => setNarx(e.target.value)}
+                value={narx}
+                id="narx"
+                className="form-control "
+                placeholder="Narxini kiriting"
+                required
+              />
+            </div>
+            <div className="col-2">
+              <select
+                onChange={(e) => setValyuta(e.target.value)}
+                className="form-select form-select"
+                aria-label="form-select example"
+                id="xususiy"
+                required
+              >
+                <option value="">so'm yoki y.e</option>
+
+                <option value="so'm">so'm</option>
+                <option value="y.e">y.e</option>
+              </select>
+            </div>
+          </div>
         </div>
         <h5 className="mt-4">Qo'shimcha ma'lumot</h5>
         <div className="mt-4">
           <label htmlFor="xususiy">Xususiy yoki biznes*</label>
-          <select id="xususiy" className="form-control mt-2">
+          <select
+            onChange={(e) => setXususiyYokiBiznes(e.target.value)}
+            className="form-select form-select"
+            aria-label="form-select example"
+            id="xususiy"
+            required
+          >
+            <option value="">Tanlang . . .</option>
             <option value="Jismoniy shaxs">Jismoniy shaxs</option>
             <option value="Biznes">Biznes</option>
           </select>
         </div>
         <div className="mt-4">
-          <label htmlFor="xususiy">It zoti*</label>
-          <select id="xususiy" className="form-control mt-2">
-          <option value="">Akita</option>
-          <option value="">Alyaska malamuti</option>
-          <option value="">Amerika buldogi</option>
-          <option value="">Ingliz buldogi</option>
-          <option value="">Basset</option>
-          <option value="">Belьgiya ovcharkasi</option>
-          <option value="">Bern zennenxundi</option>
-          <option value="">Bigl</option>
-          <option value="">Bishon frize</option>
-          <option value="">Bokser</option>
-          <option value="">Bolonka</option>
-          <option value="">Bord dogi</option>
-          <option value="">Bulmastif</option>
-          <option value="">Bulterer</option>
-          <option value="">Burbul</option>
-          <option value="">Vest xaylend uayt terer</option>
-          <option value="">Sharqiy-evropa ovcharkasi</option>
-          <option value="">Griffon</option>
-          <option value="">Dalmatin</option>
-          <option value="">Djek Rassel</option>
-          <option value="">Doberman</option>
-          <option value="">Tilla rang retriver</option>
-          <option value="">Irlandiya setteri</option>
-          <option value="">Irland tereri</option>
-          <option value="">Yorkshir tereri</option>
-          <option value="">Kavkaz ovcharkasi</option>
-          <option value="">Kane Rorso</option>
-          <option value="">Pastak pincher</option>
-          <option value="">Kerri-blyu terer</option>
-          <option value="">Xitoy kokilli iti</option>
-          <option value="">Kolli</option>
-          <option value="">Labrador Retriver</option>
-          <option value="">Layka</option>
-          <option value="">Malta bolonkasi</option>
-          <option value="">Mastif</option>
-          <option value="">Meksika tuksiz iti</option>
-          <option value="">Mittelьshnautser</option>
-          <option value="">Mops</option>
-          <option value="">Moskva qo‘riqchi iti</option>
-          <option value="">Nemis ovcharkasi</option>
-          <option value="">Nemis dogi</option>
-          <option value="">Папійон</option>
-          <option value="">Пекінес</option>
-          <option value="">Піт-бультер'єр</option>
-          <option value="">Померанський шпіц</option>
-          <option value="">Pudel</option>
-          <option value="">Rizenshnautser</option>
-          <option value="">Rodeziy rijbeki</option>
-          <option value="">Rotveyler</option>
-          <option value="">Rus tozisi</option>
-          <option value="">Rus qora terьer</option>
-          <option value="">Samoyed iti</option>
-          <option value="">Senbernar</option>
-          <option value="">Sibir xaskisi</option>
-          <option value="">Skay-terьer</option>
-          <option value="">Skotch-terer</option>
-          <option value="">Spaniyel</option>
-          <option value="">O‘rta osiyo ovcharkasi</option>
-          <option value="">Staffordshir bultereri</option>
-          <option value="">Staffordshir tereri</option>
-          <option value="">Taksa</option>
-          <option value="">Toy-terer</option>
-          <option value="">Foksterer</option>
-          <option value="">Frantsuz buldogi</option>
-          <option value="">Tsvergpincher</option>
-          <option value="">Tsvergshnauser</option>
-          <option value="">Chau-chau</option>
-          <option value="">Chihuahua</option>
-          <option value="">Sharpey</option>
-          <option value="">Shelti</option>
-          <option value="">Shi-ttsu</option>
-          <option value="">Shpits</option>
-          <option value="">Erdelterer</option>
-          <option value="">Yapon xini</option>
-          <option value="">Boshqa</option>
-
-          </select>
+          <label htmlFor="turi">Hayvon turi*</label>
+          <input
+            type={"text"}
+            onChange={(e) => setHayvonTuri(e.target.value)}
+            value={hayvonTuri}
+            id="turi"
+            className="form-control mt-2"
+            placeholder="Hayvon turi Masalan Sigir"
+            required
+          />
+        </div>
+        <div className="mt-4">
+          <label htmlFor="zoti">Hayvon zoti*</label>
+          <input
+            type={"text"}
+            onChange={(e) => setHayvonZoti(e.target.value)}
+            value={hayvonZoti}
+            id="zoti"
+            className="form-control mt-2"
+            placeholder="O'lchamni kiriting"
+            required
+          />
         </div>
         <h5 className="mt-4">Aloqa uchun ma'lumotlar</h5>
         <div className="mt-4">
           <label htmlFor="xususiy">Joylashuv*</label>
           <input
             type="text"
+            onChange={(e) => setJoylashuv(e.target.value)}
+            value={joylashuv}
             id="joylashuv"
             className="form-control mt-2"
             placeholder="Shahar yoki pochta indeksi"
+            required
           />
         </div>
         <div className="mt-4">
           <label htmlFor="firstname">Murojaat qiluvchi shaxs*</label>
           <input
-            defaultValue={user?.name}
+            onChange={(e) => setName(e.target.value)}
+            value={name}
             type="text"
             id="firstname"
             className="form-control mt-2"
             placeholder="Odamlar sizga qanday murojat qilishlari kerak ?"
+            required
           />
         </div>
         <div className="mt-4">
           <label htmlFor="email">Email-manzil*</label>
           <input
-            defaultValue={user?.email}
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
             type="email"
             id="email"
             className="form-control mt-2"
             placeholder="Email manzilingizni kiriting"
+            required
           />
         </div>
         <div className="mt-4">
           <label htmlFor="phone">Telefon raqami*</label>
           <input
-            defaultValue={user?.phone}
-            type="number"
+            onChange={(e) => setPhone(e.target.value)}
+            value={phone}
+            type="text"
             id="phone"
             className="form-control mt-2"
             placeholder="Telefon raqamingiz"
+            required
           />
         </div>
 
@@ -318,7 +310,7 @@ function Havvonlar() {
           </div>
         </div>
 
-        <button disabled={!images} className="btn btn-success mt-4" form="addformhayvonlar">
+        <button className="btn btn-success mt-4" form="addformHayvonlar">
           {loader ? <Spinner animation="border" size="sm" /> : "Joylashtirish"}
         </button>
       </form>
@@ -326,4 +318,4 @@ function Havvonlar() {
   );
 }
 
-export default Havvonlar;
+export default Hayvonchiklar;

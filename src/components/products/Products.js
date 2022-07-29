@@ -1,14 +1,12 @@
 import React from "react";
 import Moment from "react-moment";
 import { useUserContext } from "../../Contexts/Context";
-import "./products.scss";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { IconButton } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import AttachMoneyOutlinedIcon from "@mui/icons-material/AttachMoneyOutlined";
 import Likes from "../products/cardOpen/filtered/Likes";
+import "./products.scss";
 function Products() {
   const { products, onCardItemClick } = useUserContext();
 
@@ -17,14 +15,18 @@ function Products() {
       <h2 className="text-center">Hamma Elonlar</h2>
       <div className="row mt-4">
         {products.map((itm, idx) => (
-          <div className="col-3   " key={idx}>
+          <div className="col-3 mt-2  " key={idx}>
             <div className="card  ">
               <div className="photo">
                 <Link
                   onClick={() => onCardItemClick(itm)}
                   to={`/card/${itm.category}/${itm.name}/${itm.ID}`}
                 >
-                  <img src={itm.url} className={"img-fluid"} alt="Error" />
+                  <img
+                    src={itm.url || itm.url2}
+                    className={"img-fluid"}
+                    alt="Error"
+                  />
                 </Link>
               </div>
               <div className="context_">
@@ -47,7 +49,19 @@ function Products() {
                 </small>
                 <div className="d-flex align-items-center justify-content-between">
                   <strong>
-                    <AttachMoneyOutlinedIcon /> {itm.narx} {"  "} {itm.valyuta}
+                    <AttachMoneyOutlinedIcon /> {itm.narx && <> {itm.narx}</>}
+                    <small>
+                      {itm.narxDan && (
+                        <>
+                          {" "}
+                          {itm.narxDan}
+                          {" - "}
+                        </>
+                      )}
+                      {itm.narxGacha && <> {itm.narxGacha}</>}
+                    </small>
+                    {"  "} {itm.valyuta}
+                    <small>{itm.narxGacha && <> gacha</>}</small>
                   </strong>
                   <Likes itm={itm} />
                 </div>

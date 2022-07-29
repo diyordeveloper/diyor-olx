@@ -17,7 +17,7 @@ export function Context({ children }) {
     for (var snap of products.docs) {
       var data = snap.data();
       data.ID = snap.id;
-      productsArray.push({
+      productsArray.unshift({
         ...data,
       });
       if (productsArray.length === products.docs.length) {
@@ -36,7 +36,7 @@ export function Context({ children }) {
     for (var snap of banner.docs) {
       var data = snap.data();
       data.ID = snap.id;
-      bannerArray.push({
+      bannerArray.unshift({
         ...data,
       });
       if (bannerArray.length === banner.docs.length) {
@@ -49,25 +49,26 @@ export function Context({ children }) {
     getBanner();
   }, []);
 
-  // Cardni bosganda ID chiqarib berish 
+  // Cardni bosganda ID chiqarib berish
   function onCardItemClick(itm) {
     db.collection("allproducts")
       .doc(itm.ID)
       .update(itm)
       .then(() => {
         console.log("ID ADDDD" + itm.ID);
-        
       });
   }
   // Filter
   const [active_category, setActive_Category] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState(""); 
   const CategoryFilters = (itm) => {
-    setActive_Category(itm.id);
-    filterFunction(itm.category);
-    setCategory(itm.category);
-    console.log(itm);
+   
+      setActive_Category(itm.id);
+      filterFunction(itm.category);
+      setCategory(itm.category);
+     
   };
+
   const [filteredProducts, setFilteredProducts] = useState([]);
   const filterFunction = (category) => {
     if (products.length > 1) {
@@ -77,13 +78,13 @@ export function Context({ children }) {
       console.log("no products to filter");
     }
   };
-
   //  Filter Clear
   const ClearCategory = () => {
-    setFilteredProducts([]);
     setActive_Category("");
+    filterFunction("");
     setCategory("");
   };
+
   const AllFunction = {
     products,
     banner,

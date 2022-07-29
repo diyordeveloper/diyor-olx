@@ -35,7 +35,7 @@ function Navbar() {
     for (var snap of likesLen.docs) {
       var data = snap.data();
       data.ID = snap.id;
-      likesLenArray.push({
+      likesLenArray.unshift({
         ...data,
       });
       if (likesLenArray.length === likesLen.docs.length) {
@@ -61,7 +61,7 @@ function Navbar() {
           <ChatBubbleIcon className="icon_" />
         </Link>
         <Link
-          to={`${uid !== null ? "/sorted" : "/register"}`}
+          to={`${uid !== null ? "/favorites" : "/register"}`}
           className="text_dec_none Likes   mar-r "
         >
           <strong>Saralangan </strong>

@@ -16,23 +16,11 @@ import { db } from "../../../firebase.config";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { IconButton } from "@mui/material";
 import "./styleCard.scss";
-function CardFilter({ ID, location, category }) {
+function CardFilter({ ID, location, category, cardArr }) {
   const { user } = useAuthContext();
   const [copyValue, setCopyValue] = useState(location.pathname);
   const [copy, setCopy] = useState(false);
 
-  const [cardArr, setCardArr] = useState([]);
-  useEffect(() => {
-    db.collection("allproducts")
-      .doc(ID)
-      .get()
-      .then((snapshot) => {
-        if (snapshot) {
-          setCardArr(snapshot.data());
-        }
-      });
-  }, []);
-  console.log("bu id" + ID);
   function CopyToggle() {
     setCopy(true);
     toast.success("URL manzil nusxalandi");
@@ -77,8 +65,16 @@ function CardFilter({ ID, location, category }) {
                 <h3 className="mt-2">{cardArr.sarlavha}</h3>
                 <h3 className="mt-2">
                   <strong>
-                    {cardArr.narx}
+                    {cardArr.narx && <>{cardArr.narx}</>}
+                    {cardArr.narxDan && (
+                      <>
+                        {cardArr.narxDan}
+                        {" dan "}
+                      </>
+                    )}
+                    {cardArr.narxGacha && <>{cardArr.narxGacha} </>}
                     {"  "} {cardArr.valyuta}
+                    {cardArr.narxGacha && <>{" gacha"} </>}
                   </strong>
                 </h3>
                 <ul className="mt-1 elon_ul">
@@ -265,6 +261,176 @@ function CardFilter({ ID, location, category }) {
                       </li>
                     )}
                   </>
+                  {/* Transport */}
+                  <>
+                    {cardArr.model && (
+                      <li>
+                        <p className="elon_btn mt-2  btn-sm mar-r">
+                          Model:{"  "} {cardArr.model}
+                        </p>
+                      </li>
+                    )}
+                    {cardArr.kuzovTuri && (
+                      <li>
+                        <p className="elon_btn mt-2  btn-sm mar-r">
+                          Kuzov turi:{"  "} {cardArr.kuzovTuri}
+                        </p>
+                      </li>
+                    )}
+                    {cardArr.ishlabChiqarilganYil && (
+                      <li>
+                        <p className="elon_btn mt-2  btn-sm mar-r">
+                          Ishlab chiqarilgan yili*:{"  "}{" "}
+                          {cardArr.ishlabChiqarilganYil}
+                        </p>
+                      </li>
+                    )}
+                    {cardArr.bosganYol && (
+                      <li>
+                        <p className="elon_btn mt-2  btn-sm mar-r">
+                          Bosgan yo‘li:{"  "} {cardArr.bosganYol}
+                        </p>
+                      </li>
+                    )}
+                    {cardArr.uzatmalarQutisi && (
+                      <li>
+                        <p className="elon_btn mt-2  btn-sm mar-r">
+                          Uzatmalar qutisi:{"  "} {cardArr.uzatmalarQutisi}
+                        </p>
+                      </li>
+                    )}
+                    {cardArr.rang && (
+                      <li>
+                        <p className="elon_btn mt-2  btn-sm mar-r">
+                          Rang:{"  "} {cardArr.rang}
+                        </p>
+                      </li>
+                    )}
+                    {cardArr.dvigatelHajmi && (
+                      <li>
+                        <p className="elon_btn mt-2  btn-sm mar-r">
+                          Dvigatel hajmi:{"  "} {cardArr.dvigatelHajmi} см³
+                        </p>
+                      </li>
+                    )}
+                    {cardArr.yoqilgiTuri && (
+                      <li>
+                        <p className="elon_btn mt-2  btn-sm mar-r">
+                          Yoqilg‘i turi:{"  "} {cardArr.yoqilgiTuri}
+                        </p>
+                      </li>
+                    )}
+                    {cardArr.mashinaHolati && (
+                      <li>
+                        <p className="elon_btn mt-2  btn-sm mar-r">
+                          Mashina holati:{"  "} {cardArr.mashinaHolati}
+                        </p>
+                      </li>
+                    )}
+                    {cardArr.mulkdorlarSoni && (
+                      <li>
+                        <p className="elon_btn mt-2  btn-sm mar-r">
+                          Mulkdorlar soni:{"  "} {cardArr.mulkdorlarSoni}
+                        </p>
+                      </li>
+                    )}
+                    {cardArr.qoshimchaOptsiyalar && (
+                      <li>
+                        <p className="elon_btn mt-2  btn-sm mar-r">
+                          Qo‘shimcha optsiyalar:{"  "}{" "}
+                          {cardArr.qoshimchaOptsiyalar + " "}
+                        </p>
+                      </li>
+                    )} 
+                  </>
+                    {/* Ish */}
+                    <>
+                    {cardArr.taklifQilayabsizmiQidirayabszmi && (
+                      <li>
+                        <p className="elon_btn mt-2  btn-sm mar-r">
+                          Ish:{"  "}{" "}
+                          {cardArr.taklifQilayabsizmiQidirayabszmi + " "}
+                        </p>
+                      </li>
+                    )}
+                    {cardArr.ishTuri && (
+                      <li>
+                        <p className="elon_btn mt-2  btn-sm mar-r">
+                          Ish turi:{"  "} {cardArr.ishTuri + " "}
+                        </p>
+                      </li>
+                    )}
+                    {cardArr.bandlikTuri && (
+                      <li>
+                        <p className="elon_btn mt-2  btn-sm mar-r">
+                          Bandlik turi:{"  "} {cardArr.bandlikTuri + " "}
+                        </p>
+                      </li>
+                    )}
+                    {cardArr.masofadanIshlashArray && (
+                      <li>
+                        <p className="elon_btn mt-2  btn-sm mar-r">
+                          {"  "} {cardArr.masofadanIshlashArray + " "}
+                        </p>
+                      </li>
+                    )}
+                    {cardArr.rezyumeLink && (
+                      <li>
+                        <input
+                          type="text"
+                          className="form-control-sm mt-2"
+                          value={cardArr.rezyumeLink}
+                        />
+                      </li>
+                    )}</>
+                    {/* Hayvonlar */}
+                    {cardArr.hayvonTuri && (
+                      <li>
+                        <p className="elon_btn mt-2  btn-sm mar-r">
+                          hayvon turi:{"  "}{" "}
+                          {cardArr.hayvonTuri + " "}
+                        </p>
+                      </li>
+                    )}
+                    {cardArr.hayvonZoti && (
+                      <li>
+                        <p className="elon_btn mt-2  btn-sm mar-r">
+                          hayvon zoti:{"  "}{" "}
+                          {cardArr.hayvonZoti + " "}
+                        </p>
+                      </li>
+                    )}
+                    
+                    {/* Uyva Bog' */}
+                    <>
+                    {cardArr.mebelTuri && (
+                      <li>
+                        <p className="elon_btn mt-2  btn-sm mar-r">
+                          Mebel turi:{"  "}{" "}
+                          {cardArr.mebelTuri + " "}
+                        </p>
+                      </li>
+                    )}
+                    {cardArr.qaysiXonaUchun && (
+                      <li>
+                        <p className="elon_btn mt-2  btn-sm mar-r">
+                          Xona:{"  "}{" "}
+                          {cardArr.qaysiXonaUchun + " "}
+                        </p>
+                      </li>
+                    )}</>
+                    {/* Elektr jihozlari */}
+                    <>
+                    {
+                    cardArr.marka && (
+                      <li>
+                        <p className="elon_btn mt-2  btn-sm mar-r">
+                         Marka:{"  "}{" "}
+                          {cardArr.marka + " "}
+                        </p>
+                      </li>
+                    )}
+                    </>
                 </ul>
                 <h3 className="mt-3"> Tavsif</h3>
                 <p className="mt-2">{cardArr.tavsif}</p>

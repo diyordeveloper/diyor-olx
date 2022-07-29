@@ -11,19 +11,19 @@ function FilterCategory() {
         {categories.map((itm, idx) => (
           <div
             key={idx}
-            className="col-2 mt-4"
+            className="col-2 mt-2"
             onClick={() => CategoryFilters(itm)}
           >
             <div
-              style={
-                itm.id === active_category ? { background: itm.bg_color } : null
-              }
+              
               className="
-                 card_ card p-2 
+                 card_   p-2 
                   "
             >
-              <div className="photo">
-                <img src={itm.url} alt="Errorr!!!" />
+              <div className="photo" style={
+                itm.id === active_category ? { background: itm.bg_color } : null
+              }>
+                <img src={itm.url}  alt="Errorr!!!" />
               </div>
               <h5 className="cate_name">{itm.category}</h5>
             </div>

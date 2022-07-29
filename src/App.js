@@ -19,6 +19,7 @@ import "./assets/style/style.scss";
 import AddCate from "./components/add/AddCate";
 import UserElon from "./components/userelon/UserElon";
 import AllCard from "./components/products/AllCard";
+import Favorites from "./components/favorites/Favorites";
 function App() {
   return (
     <div className="container">
@@ -31,10 +32,10 @@ function App() {
             <Route element={<Login />} path="/login" />
             <Route element={<Register />} path="/register" />
             <Route element={<Profil />} path="/profil" />
-            <Route element={<Elon />} path="/elon" />
-            <Route element={<AddCate />} path="/addcate" />
-            <Route element={<UserElon />} path="/userelon" />
             <Route element={<AllCard />} path="/card/:category/:name/:ID" />
+            <Route element={<Elon />} path="/elon" /> 
+            <Route element={<Favorites />} path="/favorites" /> 
+            <Route element={<UserElon />} path="/userelon" />
           </Routes>
         </AuthContextUser>
         </Context>
