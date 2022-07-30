@@ -81,11 +81,17 @@ export function Context({ children }) {
   const [searchTitle, setSearchTitle] = useState("");
   const [searchZone, setSearchZone] = useState("");
   const [searchCategory, setSearchCategory] = useState("");
+  const [narxSearch, setNarxSearch] = useState("");
+  const [valyutaSearch, setValyutaSearch] = useState("");
+  const [biznesYokiXususiyFilter, setBiznesYokiXususiyFilter] = useState("");
   //  Filter Clear
   const ClearCategory = () => {
     setSearchTitle("");
     setSearchZone("");
     setSearchCategory("");
+    setNarxSearch("");
+    setValyutaSearch("");
+    setBiznesYokiXususiyFilter("");
   };
 
   const AllFunction = {
@@ -93,6 +99,12 @@ export function Context({ children }) {
     banner,
     searchTitle,
     searchZone,
+    narxSearch,
+    setNarxSearch,
+    valyutaSearch,
+    setValyutaSearch,
+    biznesYokiXususiyFilter,
+    setBiznesYokiXususiyFilter,
     setSearchTitle,
     setSearchZone,
     users,

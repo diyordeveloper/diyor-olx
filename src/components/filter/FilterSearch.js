@@ -10,7 +10,7 @@ function FilterInput() {
     <div className="  d-flex justify-content-between align-items-center mt-4 mt-4">
       <SearchIcon />
       <input
-        type="text"
+      type={"search"}
         className="form-control  pt-2 pb-2"
         placeholder={`${products.length + " "} e'lonlar yoningizda`}
         onChange={(e) => setSearchTitle(e.target.value)}
@@ -18,7 +18,7 @@ function FilterInput() {
       />
       <LocationOnOutlinedIcon />
       <input
-        type="text"
+      type={"search"}
         className="form-control pt-2 pb-2"
         placeholder={`Butun O'zbekiston`}
         onChange={(e) => setSearchZone(e.target.value)}

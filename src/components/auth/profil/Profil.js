@@ -22,7 +22,10 @@ import SearchIcon from "@mui/icons-material/Search";
 import Moment from "react-moment";
 import GridViewIcon from "@mui/icons-material/GridView";
 import ViewListIcon from "@mui/icons-material/ViewList";
+import LogoutIcon from "@mui/icons-material/Logout";
 import Likes from "../../products/cardOpen/filtered/Likes";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import EditIcon from "@mui/icons-material/Edit";
 function Profil() {
   const {} = useUserContext();
   const { user, currentUser, logout, uid } = useAuthContext();
@@ -195,6 +198,17 @@ function Profil() {
       setLoader(false);
     }
   };
+
+  function FavoritesDelete(itm) {
+    if (window.confirm("Rostdan ham o'chirmoqchimisiz ?"))
+      db.collection("allproducts")
+        .doc(itm.ID)
+        .delete()
+        .then(() => {
+          toast.success("E'lon butunlay o'chirildi"); 
+          window.location.reload(true)
+        });
+  }
   return (
     <NavFot>
       <>
@@ -406,7 +420,7 @@ function Profil() {
                   ) {
                     return ff.name === name && ff.email === email;
                   }
-                }) 
+                })
                 .map((itm, idx) => (
                   <div className="col-4 mb-3   " key={idx}>
                     <div className="card  ">
@@ -462,6 +476,24 @@ function Profil() {
                             <small>{itm.narxGacha && <> gacha</>}</small>
                           </strong>
                           <Likes itm={itm} />
+                        </div>
+                        <div className="d-flex align-items-center justify-content-between ">
+                          <IconButton>
+                            <button
+                              className="btn btn-warning btn-sm"
+                              // onClick={() => FavoritesDelete(itm)}
+                            >
+                              <EditIcon style={{ fontSize: "17px" }} />
+                            </button>
+                          </IconButton>
+                          <IconButton>
+                            <button
+                              className="btn btn-danger btn-sm"
+                              onClick={() => FavoritesDelete(itm)}
+                            >
+                              <DeleteOutlineIcon style={{ fontSize: "17px" }} />
+                            </button>
+                          </IconButton>
                         </div>
                       </div>
                     </div>
@@ -548,6 +580,26 @@ function Profil() {
                               </strong>
                               <Likes itm={itm} />
                             </div>
+                            <div className="d-flex align-items-center justify-content-between ">
+                              <IconButton>
+                                <button
+                                  className="btn btn-warning btn-sm"
+                                  // onClick={() => FavoritesDelete(itm)}
+                                >
+                                  <EditIcon style={{ fontSize: "17px" }} />
+                                </button>
+                              </IconButton>
+                              <IconButton>
+                                <button
+                                  className="btn btn-danger btn-sm"
+                                  onClick={() => FavoritesDelete(itm)}
+                                >
+                                  <DeleteOutlineIcon
+                                    style={{ fontSize: "17px" }}
+                                  />
+                                </button>
+                              </IconButton>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -560,10 +612,10 @@ function Profil() {
       </div>
       <div className={`row ${menu === 2 ? "" : "d-none"}`}>
         <h2 className="text-center">Sozlamalar</h2>
+        <button className="btn btn-danger mt-5" onClick={logout}>
+          <LogoutIcon /> LogOut
+        </button>
       </div>
-      {/* <button className="btn btn-danger mt-5" onClick={logout}>
-              LogOut
-            </button> */}
     </NavFot>
   );
 }

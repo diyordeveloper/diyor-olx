@@ -56,6 +56,14 @@ function Favorites() {
   function FavoriteDel() {
     // window.location.reload(true)
   }
+  function GridListt() {
+    setRoyxat(1);
+    window.location.reload(false) 
+  }
+  function ViewListt() {
+    setRoyxat(2);
+    window.location.reload(false) 
+  }
   return (
     <NavFot>
       {favorites.length === 0 ? (
@@ -93,30 +101,28 @@ function Favorites() {
               {favorites.length}
               {" )"}
             </h5>
-            <button onClick={FavoritesDelete} className="btn btn-danger">
-              Saralanganlarni o'chirish
-            </button>
+            <div className="d-flex align-items-center mb-4">
+              <div className="mar-r">Ro'yxat ko'rishi:</div>
+              <button
+                onClick={GridListt}
+                className={`mar-r btn btn-outline-secondary btn-sm ${
+                  royxat === 1 ? "bg-secondary text-white" : ""
+                } `}
+              >
+                <GridViewIcon />
+              </button>
+              <button
+                onClick={ViewListt}
+                className={`btn  btn-outline-secondary btn-sm ${
+                  royxat === 2 ? "bg-secondary text-white" : ""
+                } `}
+              >
+                <ViewListIcon />
+              </button>
+            </div>
           </div>
           <hr className="mt-4 mb-4" />
-          <div className="d-flex align-items-center mb-4">
-            <div className="mar-r">Ro'yxat ko'rishi:</div>
-            <button
-              onClick={() => setRoyxat(1)}
-              className={`mar-r btn btn-outline-secondary btn-sm ${
-                royxat === 1 ? "bg-secondary text-white" : ""
-              } `}
-            >
-              <GridViewIcon />
-            </button>
-            <button
-              onClick={() => setRoyxat(2)}
-              className={`btn  btn-outline-secondary btn-sm ${
-                royxat === 2 ? "bg-secondary text-white" : ""
-              } `}
-            >
-              <ViewListIcon />
-            </button>
-          </div>
+
           <div
             className={`row   cardkorinishida ${royxat === 1 ? "" : "d-none"}`}
           >

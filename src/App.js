@@ -20,6 +20,7 @@ import AllCard from "./components/products/AllCard";
 import Favorites from "./components/favorites/Favorites";
 import AllProfil from "./components/auth/profil/AllProfil";
 import NotFound404 from "./components/404/NotFound404";
+import AllProductsFiltered from "./components/filter/AllProductsFiltered";
 function App() {
   return (
     <div className="container">
@@ -31,6 +32,7 @@ function App() {
               <Route index element={<Home />} path="/" />
               <Route element={<Login />} path="/login" />
               <Route element={<Register />} path="/register" />
+              <Route element={<AllProductsFiltered />} path="/filter/:category" /> 
               <Route element={<Profil />} path="/profilim/:name/:email" />
               <Route
                 element={<AllProfil />}
