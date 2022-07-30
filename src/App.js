@@ -31,7 +31,7 @@ function App() {
               <Route index element={<Home />} path="/" />
               <Route element={<Login />} path="/login" />
               <Route element={<Register />} path="/register" />
-              <Route element={<Profil />} path="/profil" />
+              <Route element={<Profil />} path="/profilim/:name/:email" />
               <Route
                 element={<AllProfil />}
                 path="/profiluser/:name/:phone/:email"

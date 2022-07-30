@@ -83,7 +83,7 @@ function Navbar() {
               <DropdownItem>
                 <Link
                   className="btn btn-primary"
-                  to={`${uid !== null ? "/profil" : "/register"}`}
+                  to={`${uid !== null ? `/profilim/${user?.name}/${user?.email}` : "/register"}`}
                 >
                   <PersonIcon className="icon_" /> Profilim
                 </Link>{" "}
@@ -98,7 +98,7 @@ function Navbar() {
           </UncontrolledDropdown>
         ) : (
           <Link
-            to={`${uid !== null ? `/profil/${user?.name}` : "/register"}`}
+            to={`${uid !== null ? `/profilim/${user?.name}/${user?.email}` : "/register"}`}
             className="text_dec_none  mar-r"
           >
             <strong>Profilim </strong>

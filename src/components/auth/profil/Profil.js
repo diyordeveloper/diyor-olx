@@ -406,10 +406,9 @@ function Profil() {
                   ) {
                     return ff.name === name && ff.email === email;
                   }
-                })
-
+                }) 
                 .map((itm, idx) => (
-                  <div className="col-3   " key={idx}>
+                  <div className="col-4 mb-3   " key={idx}>
                     <div className="card  ">
                       <div className="photo">
                         <Link
