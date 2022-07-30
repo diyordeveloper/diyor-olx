@@ -20,7 +20,6 @@ import { useAuthContext } from "../../Contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { IconButton } from "@mui/material";
 
-
 function Elon() {
   const {} = useUserContext();
   const { user, currentUser, logout, uid } = useAuthContext();
@@ -32,9 +31,9 @@ function Elon() {
 
   function toggleModal() {
     setShowModal(!showModal);
-    if (user?.avatarimg === undefined) {
+    if (user?.avatarimg === undefined && user?.avatarbanner === undefined) {
       toast.warning("Profilga rasm qo'ymagansiz !");
-      navigate("/profil");
+      navigate(`/profilim/${user?.name}/${user?.email}`);
     } else {
       toggleModal();
     }
@@ -59,7 +58,7 @@ function Elon() {
   return (
     <NavFot>
       <div className="row  ">
-      <Link to={"/"} className="text_dec_none">
+        <Link to={"/"} className="text_dec_none">
           <IconButton>
             <ArrowBackIcon />
           </IconButton>
@@ -81,7 +80,7 @@ function Elon() {
             <div className="col-6  ">
               {cateItm.length === 0 ? (
                 <button
-                id="rukn"
+                  id="rukn"
                   className="btn btn-success mt-3 mb-3 pt-3 pb-3 "
                   onClick={toggleModal}
                 >
