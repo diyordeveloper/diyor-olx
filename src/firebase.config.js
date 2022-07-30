@@ -11,7 +11,7 @@ const firebaseConfig = {
   storageBucket: "diyor-olx-509bd.appspot.com",
   messagingSenderId: "821182060752",
   appId: "1:821182060752:web:799dec4dbdc66489fae6d5",
-  measurementId: "G-H3PKY550Q2"
+  measurementId: "G-H3PKY550Q2",
 };
 
 // Initialize Firebase
