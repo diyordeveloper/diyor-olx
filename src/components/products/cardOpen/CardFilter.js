@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import PhoneForwardedIcon from "@mui/icons-material/PhoneForwarded";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
@@ -16,7 +16,9 @@ import { db } from "../../../firebase.config";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { IconButton } from "@mui/material";
 import "./styleCard.scss";
-function CardFilter({ ID, location, category, cardArr }) {
+function CardFilter({ ID, location, category, cardArr,name,email }) {
+  const navigate = useNavigate();
+
   const { user } = useAuthContext();
   const [copyValue, setCopyValue] = useState(location.pathname);
   const [copy, setCopy] = useState(false);
@@ -30,7 +32,27 @@ function CardFilter({ ID, location, category, cardArr }) {
       setCopy(false);
     }, 5000);
   }, [copy]);
-
+  function onProfilUser() {
+    navigate(`/profiluser/${cardArr.name}/${cardArr.phone}/${cardArr.email}`);
+  }
+  const [users, setUsers] = useState([]);
+  const getUsers = async () => {
+    const users = await db.collection("users").get();
+    const usersArray = [];
+    for (var snap of users.docs) {
+      var data = snap.data();
+      data.ID = snap.id;
+      usersArray.unshift({
+        ...data,
+      });
+      if (usersArray.length === users.docs.length) {
+        setUsers(usersArray);
+      }
+    }
+  };
+  useEffect(() => {
+    getUsers();
+  }, []);
   return (
     <>
       <Link to={"/"} className="text_dec_none">
@@ -459,11 +481,17 @@ function CardFilter({ ID, location, category, cardArr }) {
             <div className="col-5">
               <div className="user">
                 <h5>Foydalanuvchi</h5>
-                <div className="row">
+                {
+                  users
+                  .filter((filter)=>filter.name === name||filter.email === email)
+                  .map((i)=>(
+
+                <div className="row" onClick={onProfilUser}>
                   <div className="col-2">
                     <div className="avatarka">
                       <img
                         src={
+                          i.avatarimg  ||
                           "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"
                         }
                         className={"img-fluid"}
@@ -472,13 +500,13 @@ function CardFilter({ ID, location, category, cardArr }) {
                     </div>
                   </div>
                   <div className="col-10">
-                    <h4>{cardArr.name}</h4>
+                    <h4>{i.name}</h4>
                     <h5>
                       <a
-                        href={`email:${cardArr.email}`}
+                        href={`email:${i.email}`}
                         className={"text_dec_none"}
                       >
-                        {cardArr.email}
+                        {i.email}
                       </a>
                     </h5>
 
@@ -497,11 +525,11 @@ function CardFilter({ ID, location, category, cardArr }) {
                     <small>
                       Oxirgi marta{" "}
                       <Moment format="D-MMM-YYYY">
-                        {user?.timeout?.toDate()}
+                        {i.timeout?.toDate()}
                       </Moment>
                       {" - "}
                       <Moment format="hh:mm:ss">
-                        {user?.timeout?.toDate()}
+                        {i.timeout?.toDate()}
                       </Moment>{" "}
                       online bo'lgan
                     </small>
@@ -523,6 +551,8 @@ function CardFilter({ ID, location, category, cardArr }) {
                     </Link>
                   </div>
                 </div>
+                  ))
+                }
               </div>
               <div className="joylashuv mt-3">
                 <h5>Joylashuv</h5>

@@ -1,6 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
-// import { signOut, updateProfile } from "firebase/auth";
-// import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import React, { useEffect, useState, useRef } from "react"; 
 import { useNavigate, Link } from "react-router-dom";
 import { IconButton } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -16,7 +14,7 @@ import { useAuthContext } from "../../../Contexts/AuthContext";
 import NavFot from "../../navfot/NavFot";
 import FlipCameraIosOutlinedIcon from "@mui/icons-material/FlipCameraIosOutlined";
 import { Modal, Spinner } from "react-bootstrap";
-import BakroundImg from "../../../assets/backround/backround.jfif";
+import BakroundImg from "../../../assets/backround/bg.jpg";
 function Profil() {
   const {} = useUserContext();
   const { user, currentUser, logout, uid } = useAuthContext();
@@ -196,6 +194,7 @@ function Profil() {
         </Modal.Body>
       </Modal>
       <div className="row   ">
+        <div>
         <Link to={"/"} className="text_dec_none">
           <IconButton>
             <ArrowBackIcon />
@@ -204,7 +203,8 @@ function Profil() {
           {" / "}
           Profil
         </Link>
-        <div className="col-10 offset-1">
+        </div>
+        <div className="col-12  ">
           <div
             style={{ background: `url(${user?.avatarbanner || BakroundImg}) ` }}
             className="profils_ card  pt-5 pb-5"

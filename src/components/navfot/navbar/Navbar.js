@@ -17,7 +17,7 @@ import { db } from "../../../firebase.config";
 import "./navbar.scss";
 function Navbar() {
   const navigate = useNavigate();
-  const {} = useUserContext();
+  const {ClearCategory} = useUserContext();
   const { user, currentUser, logout, uid } = useAuthContext();
   function OnBtn() {
     if (uid !== null) {
@@ -48,7 +48,7 @@ function Navbar() {
   });
   return (
     <nav className="navbar border-bottom  navbar-light bg-light justify-content-between mar-l mar-r ">
-      <Link to="/" className="navbar-brand">
+      <Link to="/" className="navbar-brand" onClick={ClearCategory}>
         <h2 className="logo_">DiyorOLX</h2>
       </Link>
       <div className="d-flex justify-content-between align-items-center">
@@ -66,8 +66,9 @@ function Navbar() {
         >
           <strong>Saralangan </strong>
           <FavoriteIcon className="icon_likes" />
-          {likesLen.length !== 0 ? <div className="likeslen">{likesLen.length}</div>:null }
-          
+          {likesLen.length !== 0 ? (
+            <div className="likeslen">{likesLen.length}</div>
+          ) : null}
         </Link>
         {currentUser ? (
           <UncontrolledDropdown className="mar-r">
@@ -97,7 +98,7 @@ function Navbar() {
           </UncontrolledDropdown>
         ) : (
           <Link
-            to={`${uid !== null ? "/profil" : "/register"}`}
+            to={`${uid !== null ? `/profil/${user?.name}` : "/register"}`}
             className="text_dec_none  mar-r"
           >
             <strong>Profilim </strong>

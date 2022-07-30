@@ -105,6 +105,8 @@ function Ishh() {
                   name,
                   email,
                   phone,
+                  avatarbanner:user?.avatarbanner,
+                  avatarimg:user?.avatarimg,
                   timestamp: firebase.firestore.FieldValue.serverTimestamp(),
                   url: url,
                   url2: "https://www.google.com/imgres?imgurl=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fa%2Fa9%2FBlack_x.svg&imgrefurl=https%3A%2F%2Fcommons.wikimedia.org%2Fwiki%2FFile%3ABlack_x.svg&tbnid=gd_sYQlHwfekDM&vet=12ahUKEwim9OjtiZ75AhVnhosKHVYXCmIQMygOegUIARC4AQ..i&docid=mlS8LiwG0bzawM&w=525&h=600&q=photo%20x%20black%20white&ved=2ahUKEwim9OjtiZ75AhVnhosKHVYXCmIQMygOegUIARC4AQ",

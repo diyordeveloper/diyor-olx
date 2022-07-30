@@ -15,11 +15,10 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "./assets/style/all.scss";
-import "./assets/style/style.scss";
-import AddCate from "./components/add/AddCate";
-import UserElon from "./components/userelon/UserElon";
+import "./assets/style/style.scss"; 
 import AllCard from "./components/products/AllCard";
 import Favorites from "./components/favorites/Favorites";
+import AllProfil from "./components/auth/profil/AllProfil";
 function App() {
   return (
     <div className="container">
@@ -32,10 +31,10 @@ function App() {
             <Route element={<Login />} path="/login" />
             <Route element={<Register />} path="/register" />
             <Route element={<Profil />} path="/profil" />
+            <Route element={<AllProfil />} path="/profiluser/:name/:phone/:email" />
             <Route element={<AllCard />} path="/card/:category/:name/:ID" />
             <Route element={<Elon />} path="/elon" /> 
-            <Route element={<Favorites />} path="/favorites" /> 
-            <Route element={<UserElon />} path="/userelon" />
+            <Route element={<Favorites />} path="/favorites" />  
           </Routes>
         </AuthContextUser>
         </Context>

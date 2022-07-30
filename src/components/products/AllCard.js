@@ -8,7 +8,7 @@ import { db } from "../../firebase.config";
 import Loading from "../Loading/Loading";
 function AllCard() {
   const location = useLocation();
-  let { category, name, ID, sarlavha } = useParams();
+  let { category, email, name, ID, sarlavha } = useParams();
   const [cardArr, setCardArr] = useState([]);
   useEffect(() => {
     db.collection("allproducts")
@@ -29,6 +29,8 @@ function AllCard() {
         <NavFot>
           <div className="row">
             <CardFilter
+              email={email}
+              name={name}
               ID={ID}
               cardArr={cardArr}
               category={category}

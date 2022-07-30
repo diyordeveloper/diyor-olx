@@ -95,6 +95,8 @@ function Elektrajihozchik() {
                   name,
                   email,
                   phone,
+                  avatarbanner:user?.avatarbanner,
+                  avatarimg:user?.avatarimg,
                   timestamp: firebase.firestore.FieldValue.serverTimestamp(),
                   url,
                 })

@@ -60,15 +60,14 @@ export function Context({ children }) {
   }
   // Filter
   const [active_category, setActive_Category] = useState("");
-  const [category, setCategory] = useState(""); 
+  const [category, setCategory] = useState("");
+  const [searchTitle, setSearchTitle] = useState("");
+  const [searchZone, setSearchZone] = useState("");
   const CategoryFilters = (itm) => {
-   
-      setActive_Category(itm.id);
-      filterFunction(itm.category);
-      setCategory(itm.category);
-     
+    setActive_Category(itm.id);
+    filterFunction(itm.category);
+    setCategory(itm.category);
   };
-
   const [filteredProducts, setFilteredProducts] = useState([]);
   const filterFunction = (category) => {
     if (products.length > 1) {
@@ -83,11 +82,17 @@ export function Context({ children }) {
     setActive_Category("");
     filterFunction("");
     setCategory("");
+    setSearchTitle("");
+    setSearchZone("");
   };
 
   const AllFunction = {
     products,
     banner,
+    searchTitle,
+    searchZone,
+    setSearchTitle,
+    setSearchZone,
     // Category Filter Home Page
     onCardItemClick,
     filteredProducts,
