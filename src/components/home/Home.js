@@ -43,9 +43,17 @@ function Home() {
       // }, 1000);
     }
   });
+  const [delay, setDelay] = useState(true); //default holatda loader ko'rinadi
+
+    useEffect(() => {
+        setDelay(true);
+        setTimeout(() => {
+            setDelay(false) //5s sekundan keyin loader o'chadi false qiymatga o'tadi
+        }, 2000) //5s loader aylanishi
+    }, [products])
   return (
     <>
-      {products.length === 0 ? (
+      {delay ? (
         <Loading />
       ) : (
         <div className="row">
