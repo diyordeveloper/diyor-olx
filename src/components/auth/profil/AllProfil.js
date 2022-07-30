@@ -35,7 +35,7 @@ function AllProfil() {
   return (
     <NavFot>
       {users
-        .filter((ff) => ff.name === name || ff.email === email)
+        .filter((ff) => ff.name === name && ff.email === email)
         .map((itm, idx) => (
           <div className="row   " key={idx}>
             <div>
@@ -90,7 +90,7 @@ function AllProfil() {
               onChange={(e) => setSearchTitle(e.target.value)}
               value={searchTitle}
               placeholder={`${
-                products.filter((ff) => ff.name === name || ff.email === email)
+                products.filter((ff) => ff.name === name && ff.email === email)
                   .length
               } ta e'lon`}
               className={"form-control mt-4"}

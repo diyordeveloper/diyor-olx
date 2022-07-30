@@ -72,10 +72,7 @@ function Home() {
             )}
             <FilterSearch />
             <FilterCategory />
-            {filteredProducts.length > 0 && <FilterProducts />}
-            {filteredProducts.length < 1 && (
-              <>{products.length > 0 && <Products />}</>
-            )}
+            <Products />
           </NavFot>
         </div>
       )}

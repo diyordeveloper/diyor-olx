@@ -8,7 +8,7 @@ export const useUserContext = () => {
 };
 export function Context({ children }) {
   const navigate = useNavigate();
-// Profil
+  // Profil
   const [users, setUsers] = useState([]);
   const getUsers = async () => {
     const users = await db.collection("users").get();
@@ -77,33 +77,15 @@ export function Context({ children }) {
       });
   }
   // Filter
-  const [active_category, setActive_Category] = useState("");
-  const [category, setCategory] = useState("");
+
   const [searchTitle, setSearchTitle] = useState("");
   const [searchZone, setSearchZone] = useState("");
   const [searchCategory, setSearchCategory] = useState("");
-  const CategoryFilters = (itm) => {
-    setActive_Category(itm.id);
-    filterFunction(itm.category);
-    setCategory(itm.category);
-  };
-  const [filteredProducts, setFilteredProducts] = useState([]);
-  const filterFunction = (category) => {
-    if (products.length > 1) {
-      const filter = products.filter((itm) => itm.category === category);
-      setFilteredProducts(filter);
-    } else {
-      console.log("no products to filter");
-    }
-  };
   //  Filter Clear
   const ClearCategory = () => {
-    setActive_Category("");
-    filterFunction("");
-    setCategory("");
     setSearchTitle("");
     setSearchZone("");
-    setSearchCategory("")
+    setSearchCategory("");
   };
 
   const AllFunction = {
@@ -115,14 +97,9 @@ export function Context({ children }) {
     setSearchZone,
     users,
     setSearchCategory,
-    
     searchCategory,
     // Category Filter Home Page
     onCardItemClick,
-    filteredProducts,
-    active_category,
-    category,
-    CategoryFilters,
     ClearCategory,
     //
   };

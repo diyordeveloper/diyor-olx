@@ -21,12 +21,17 @@ function FilterProducts() {
       <h2 className="text-center">{category}</h2>
       <div className="row mt-4">
         {filteredProducts
-          .filter(
-            (f) =>
-              f.sarlavha.toLowerCase().includes(searchTitle.toLowerCase()) ||
-              f.category.toLowerCase().includes(searchTitle.toLowerCase()) ||
-              f.joylashuv.toLowerCase().includes(searchZone.toLowerCase())
-          )
+          .filter((ff) => {
+            if (searchTitle == "" && searchZone == "") {
+              return ff;
+            } else if (
+              ff.sarlavha.toLowerCase().includes(searchTitle.toLowerCase()) &&
+              ff.category.toLowerCase().includes(searchTitle.toLowerCase()) &&
+              ff.joylashuv.toLowerCase().includes(searchZone.toLowerCase())
+            ) {
+              return ff;
+            }
+          })
           .map((itm, idx) => (
             <div className="col-3   " key={idx}>
               <div className="card  ">
