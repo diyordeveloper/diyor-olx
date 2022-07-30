@@ -58,11 +58,11 @@ function Favorites() {
   }
   function GridListt() {
     setRoyxat(1);
-    window.location.reload(false) 
+    // window.location.reload(false) 
   }
   function ViewListt() {
     setRoyxat(2);
-    window.location.reload(false) 
+    // window.location.reload(false) 
   }
   return (
     <NavFot>

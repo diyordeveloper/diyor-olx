@@ -30,7 +30,10 @@ export function Context({ children }) {
   // hamma productlarni olib kelish
   const [products, setProducts] = useState([]);
   const getProducts = async () => {
-    const products = await db.collection("allproducts").get();
+    const products = await db.collection("allproducts")
+ 
+
+    .get();
     const productsArray = [];
     for (var snap of products.docs) {
       var data = snap.data();
