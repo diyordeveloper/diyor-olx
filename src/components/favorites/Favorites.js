@@ -155,8 +155,20 @@ function Favorites() {
                     </small>
                     <div className="d-flex align-items-center justify-content-between">
                       <strong>
-                        <AttachMoneyOutlinedIcon /> {itm.narx} {"  "}{" "}
-                        {itm.valyuta}
+                        <AttachMoneyOutlinedIcon />{" "}
+                        {itm.narx && <> {itm.narx}</>}
+                        <small>
+                          {itm.narxDan && (
+                            <>
+                              {" "}
+                              {itm.narxDan}
+                              {" - "}
+                            </>
+                          )}
+                          {itm.narxGacha && <> {itm.narxGacha}</>}
+                        </small>
+                        {"  "} {itm.valyuta}
+                        <small>{itm.narxGacha && <> gacha</>}</small>
                       </strong>
                       <a href="#" onClick={FavoriteDel}>
                         <Likes itm={itm} />
@@ -215,8 +227,20 @@ function Favorites() {
                         </small>
                         <div className="d-flex align-items-center justify-content-between">
                           <strong>
-                            <AttachMoneyOutlinedIcon /> {itm.narx} {"  "}{" "}
-                            {itm.valyuta}
+                            <AttachMoneyOutlinedIcon />{" "}
+                            {itm.narx && <> {itm.narx}</>}
+                            <small>
+                              {itm.narxDan && (
+                                <>
+                                  {" "}
+                                  {itm.narxDan}
+                                  {" - "}
+                                </>
+                              )}
+                              {itm.narxGacha && <> {itm.narxGacha}</>}
+                            </small>
+                            {"  "} {itm.valyuta}
+                            <small>{itm.narxGacha && <> gacha</>}</small>
                           </strong>
                           <a href="#" onClick={FavoriteDel}>
                             <Likes itm={itm} />

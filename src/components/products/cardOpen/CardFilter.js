@@ -15,11 +15,16 @@ import Likes from "./filtered/Likes";
 import { db } from "../../../firebase.config";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { IconButton } from "@mui/material";
+
 import "./styleCard.scss";
-function CardFilter({ ID, location, category, cardArr,name,email }) {
+import { useUserContext } from "../../../Contexts/Context";
+function CardFilter({ ID, location, category, cardArr, name, email }) {
   const navigate = useNavigate();
 
   const { user } = useAuthContext();
+
+  const { users } = useUserContext();
+
   const [copyValue, setCopyValue] = useState(location.pathname);
   const [copy, setCopy] = useState(false);
 
@@ -35,24 +40,7 @@ function CardFilter({ ID, location, category, cardArr,name,email }) {
   function onProfilUser() {
     navigate(`/profiluser/${cardArr.name}/${cardArr.phone}/${cardArr.email}`);
   }
-  const [users, setUsers] = useState([]);
-  const getUsers = async () => {
-    const users = await db.collection("users").get();
-    const usersArray = [];
-    for (var snap of users.docs) {
-      var data = snap.data();
-      data.ID = snap.id;
-      usersArray.unshift({
-        ...data,
-      });
-      if (usersArray.length === users.docs.length) {
-        setUsers(usersArray);
-      }
-    }
-  };
-  useEffect(() => {
-    getUsers();
-  }, []);
+
   return (
     <>
       <Link to={"/"} className="text_dec_none">
@@ -481,78 +469,77 @@ function CardFilter({ ID, location, category, cardArr,name,email }) {
             <div className="col-5">
               <div className="user">
                 <h5>Foydalanuvchi</h5>
-                {
-                  users
-                  .filter((filter)=>filter.name === name||filter.email === email)
-                  .map((i)=>(
+                {users
+                  .filter(
+                    (filter) => filter.name === name || filter.email === email
+                  )
+                  .map((i) => (
+                    <div className="row" onClick={onProfilUser}>
+                      <div className="col-2">
+                        <div className="avatarka">
+                          <img
+                            src={
+                              i.avatarimg ||
+                              "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"
+                            }
+                            className={"img-fluid"}
+                            alt="Error"
+                          />
+                        </div>
+                      </div>
+                      <div className="col-10">
+                        <h4>{i.name}</h4>
+                        <h5>
+                          <a
+                            href={`email:${i.email}`}
+                            className={"text_dec_none"}
+                          >
+                            {i.email}
+                          </a>
+                        </h5>
 
-                <div className="row" onClick={onProfilUser}>
-                  <div className="col-2">
-                    <div className="avatarka">
-                      <img
-                        src={
-                          i.avatarimg  ||
-                          "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"
-                        }
-                        className={"img-fluid"}
-                        alt="Error"
-                      />
+                        <small>
+                          OLXda{" "}
+                          <Moment format="D-MMM-YYYY">
+                            {i.timestamp?.toDate()}
+                          </Moment>
+                          {" - "}
+                          <Moment format="hh:mm:ss">
+                            {i.timestamp?.toDate()}
+                          </Moment>{" "}
+                          beri
+                        </small>
+                        <br />
+                        <small>
+                          Oxirgi marta{" "}
+                          <Moment format="D-MMM-YYYY">
+                            {i.timeout?.toDate()}
+                          </Moment>
+                          {" - "}
+                          <Moment format="hh:mm:ss">
+                            {i.timeout?.toDate()}
+                          </Moment>{" "}
+                          online bo'lgan
+                        </small>
+                        <div>
+                          <a
+                            href={`tel:${cardArr.tel}`}
+                            className="btn mt-2 btn-outline-success"
+                          >
+                            <PhoneForwardedIcon /> Qo'ng'iroq qilish{" "}
+                            {"+" + cardArr.phone}
+                          </a>
+                        </div>
+                        <br />
+                        <Link
+                          className=" mt-4 text_dec_none text-secondary      "
+                          to={`/profiluser/${cardArr.name}/${cardArr.phone}/${cardArr.email}`}
+                        >
+                          Muallifning boshqa e'lonlari <ArrowForwardIcon />
+                        </Link>
+                      </div>
                     </div>
-                  </div>
-                  <div className="col-10">
-                    <h4>{i.name}</h4>
-                    <h5>
-                      <a
-                        href={`email:${i.email}`}
-                        className={"text_dec_none"}
-                      >
-                        {i.email}
-                      </a>
-                    </h5>
-
-                    <small>
-                      OLXda{" "}
-                      <Moment format="D-MMM-YYYY">
-                        {cardArr.timestamp?.toDate()}
-                      </Moment>
-                      {" - "}
-                      <Moment format="hh:mm:ss">
-                        {cardArr.timestamp?.toDate()}
-                      </Moment>{" "}
-                      beri
-                    </small>
-                    <br />
-                    <small>
-                      Oxirgi marta{" "}
-                      <Moment format="D-MMM-YYYY">
-                        {i.timeout?.toDate()}
-                      </Moment>
-                      {" - "}
-                      <Moment format="hh:mm:ss">
-                        {i.timeout?.toDate()}
-                      </Moment>{" "}
-                      online bo'lgan
-                    </small>
-                    <div>
-                      <a
-                        href={`tel:${cardArr.tel}`}
-                        className="btn mt-2 btn-outline-success"
-                      >
-                        <PhoneForwardedIcon /> Qo'ng'iroq qilish{" "}
-                        {"+" + cardArr.phone}
-                      </a>
-                    </div>
-                    <br />
-                    <Link
-                      className=" mt-4 text_dec_none text-secondary      "
-                      to={""}
-                    >
-                      Muallifning boshqa e'lonlari <ArrowForwardIcon />
-                    </Link>
-                  </div>
-                </div>
-                  ))
-                }
+                  ))}
               </div>
               <div className="joylashuv mt-3">
                 <h5>Joylashuv</h5>

@@ -8,7 +8,25 @@ export const useUserContext = () => {
 };
 export function Context({ children }) {
   const navigate = useNavigate();
-
+// Profil
+  const [users, setUsers] = useState([]);
+  const getUsers = async () => {
+    const users = await db.collection("users").get();
+    const usersArray = [];
+    for (var snap of users.docs) {
+      var data = snap.data();
+      data.ID = snap.id;
+      usersArray.unshift({
+        ...data,
+      });
+      if (usersArray.length === users.docs.length) {
+        setUsers(usersArray);
+      }
+    }
+  };
+  useEffect(() => {
+    getUsers();
+  }, []);
   // hamma productlarni olib kelish
   const [products, setProducts] = useState([]);
   const getProducts = async () => {
@@ -63,6 +81,7 @@ export function Context({ children }) {
   const [category, setCategory] = useState("");
   const [searchTitle, setSearchTitle] = useState("");
   const [searchZone, setSearchZone] = useState("");
+  const [searchCategory, setSearchCategory] = useState("");
   const CategoryFilters = (itm) => {
     setActive_Category(itm.id);
     filterFunction(itm.category);
@@ -84,6 +103,7 @@ export function Context({ children }) {
     setCategory("");
     setSearchTitle("");
     setSearchZone("");
+    setSearchCategory("")
   };
 
   const AllFunction = {
@@ -93,6 +113,10 @@ export function Context({ children }) {
     searchZone,
     setSearchTitle,
     setSearchZone,
+    users,
+    setSearchCategory,
+    
+    searchCategory,
     // Category Filter Home Page
     onCardItemClick,
     filteredProducts,
