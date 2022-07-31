@@ -26,6 +26,8 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import Likes from "../../products/cardOpen/filtered/Likes";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import EditIcon from "@mui/icons-material/Edit";
+import SuccessImg from "../../../assets/backround/Success.png";
+import Confetti from "react-confetti";
 function Profil() {
   const {} = useUserContext();
   const { user, currentUser, logout, uid } = useAuthContext();
@@ -42,7 +44,6 @@ function Profil() {
   } = useUserContext();
 
   const navigate = useNavigate();
-  const [royxat, setRoyxat] = useState(1);
   const filePickerRef = useRef(null);
   const filePickerRef2 = useRef(null);
   const types = ["image/jpg", "image/jpeg", "image/png", "image/PNG"];
@@ -198,17 +199,27 @@ function Profil() {
       setLoader(false);
     }
   };
-
+  const [showConfetti, setShowConfetti] = useState(true);
+  function Confettti() {
+    <Confetti
+      recycle={showConfetti}
+      width={window.innerWidth}
+      numberOfPieces={600}
+      height={window.innerHeight}
+    />;
+  }
   function FavoritesDelete(itm) {
     if (window.confirm("Rostdan ham o'chirmoqchimisiz ?"))
       db.collection("allproducts")
         .doc(itm.ID)
         .delete()
         .then(() => {
-          toast.success("E'lon butunlay o'chirildi"); 
-          window.location.reload(true)
+          toast.success("E'lon butunlay o'chirildi");
+          window.location.reload(true);
+          Confettti();
         });
   }
+
   return (
     <NavFot>
       <>
@@ -360,23 +371,6 @@ function Profil() {
           </div>
           <div className="col-9">
             <div className="d-flex align-items-center mb-2">
-              <div className="mar-r">Ro'yxat ko'rishi:</div>
-              <button
-                onClick={() => setRoyxat(1)}
-                className={`mar-r btn btn-outline-secondary btn-sm ${
-                  royxat === 1 ? "bg-secondary text-white" : ""
-                } `}
-              >
-                <GridViewIcon />
-              </button>
-              <button
-                onClick={() => setRoyxat(2)}
-                className={`btn  btn-outline-secondary btn-sm ${
-                  royxat === 2 ? "bg-secondary text-white" : ""
-                } `}
-              >
-                <ViewListIcon />
-              </button>
               <select
                 onChange={(e) => setSearchCategory(e.target.value)}
                 className="form-control-sm mar-l "
@@ -401,110 +395,30 @@ function Profil() {
                 Tozalash
               </button>
             </div>
-            <div
-              className={`row   cardkorinishida ${
-                royxat === 1 ? "" : "d-none"
-              }`}
-            >
-              {products
-                .filter((ff) => {
-                  if (searchTitle == "" && searchCategory == "") {
-                    return ff.name === name && ff.email === email;
-                  } else if (
-                    ff.sarlavha
-                      .toLowerCase()
-                      .includes(searchTitle.toLowerCase()) &&
-                    ff.category
-                      .toLowerCase()
-                      .includes(searchCategory.toLowerCase())
-                  ) {
-                    return ff.name === name && ff.email === email;
-                  }
-                })
-                .map((itm, idx) => (
-                  <div className="col-4 mb-3   " key={idx}>
-                    <div className="card  ">
-                      <div className="photo">
-                        <Link
-                          onClick={() => onCardItemClick(itm)}
-                          to={`/card/${itm.category}/${itm.name}/${itm.ID}`}
-                        >
-                          <img
-                            src={itm.url}
-                            className={"img-fluid"}
-                            alt="Error"
-                          />
-                        </Link>
-                      </div>
-                      <div className="context_">
-                        <h4 className="sarlavha">
-                          <Link
-                            onClick={() => onCardItemClick(itm)}
-                            to={`/card/${itm.category}/${itm.name}/${itm.ID}`}
-                          >
-                            <strong>{itm.sarlavha.substr(0, 80)}... </strong>
-                          </Link>
-                        </h4>
-                        <small className="small">
-                          <LocationOnOutlinedIcon /> {itm.joylashuv}
-                        </small>
-                        <small className="small">
-                          <AccessTimeOutlinedIcon />{" "}
-                          <Moment format="D-MMM-YYYY">
-                            {itm.timestamp?.toDate()}
-                          </Moment>
-                          {" - "}
-                          <Moment format="hh:mm:ss">
-                            {itm.timestamp?.toDate()}
-                          </Moment>
-                        </small>
-                        <div className="d-flex align-items-center justify-content-between">
-                          <strong>
-                            <AttachMoneyOutlinedIcon />{" "}
-                            {itm.narx && <> {itm.narx}</>}
-                            <small>
-                              {itm.narxDan && (
-                                <>
-                                  {" "}
-                                  {itm.narxDan}
-                                  {" - "}
-                                </>
-                              )}
-                              {itm.narxGacha && <> {itm.narxGacha}</>}
-                            </small>
-                            {"  "} {itm.valyuta}
-                            <small>{itm.narxGacha && <> gacha</>}</small>
-                          </strong>
-                          <Likes itm={itm} />
-                        </div>
-                        <div className="d-flex align-items-center justify-content-between ">
-                          <IconButton>
-                            <button
-                              className="btn btn-warning btn-sm"
-                              // onClick={() => FavoritesDelete(itm)}
-                            >
-                              <EditIcon style={{ fontSize: "17px" }} />
-                            </button>
-                          </IconButton>
-                          <IconButton>
-                            <button
-                              className="btn btn-danger btn-sm"
-                              onClick={() => FavoritesDelete(itm)}
-                            >
-                              <DeleteOutlineIcon style={{ fontSize: "17px" }} />
-                            </button>
-                          </IconButton>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-            </div>
-            <div
-              className={`row   rowxatkorinishida   ${
-                royxat === 2 ? "" : "d-none"
-              } `}
-            >
+
+            <div className={`row   rowxatkorinishida     `}>
+              {products.filter((ff) => {
+                if (searchTitle == "" && searchCategory == "") {
+                  return ff.name === name && ff.email === email;
+                } else if (
+                  ff.sarlavha
+                    .toLowerCase()
+                    .includes(searchTitle.toLowerCase()) &&
+                  ff.category
+                    .toLowerCase()
+                    .includes(searchCategory.toLowerCase())
+                ) {
+                  return ff.name === name && ff.email === email;
+                }
+              }).length === 0 ? (
+                <div className="mt-5 mb-5  d-flex align-items-center justify-content-center flex-column">
+                  <h2>E'lonlar yo'q</h2>
+                  <p>Bu joyda sizning yangi e’lonlaringiz paydo boʻladi</p>
+                  <Link to={"/elon"} className={"   btn btn-success"}>
+                    E'lon berish
+                  </Link>
+                </div>
+              ) : null}
               {products
                 .filter((ff) => {
                   if (searchTitle == "" && searchCategory == "") {

@@ -102,6 +102,9 @@ function BolalarDunyosi() {
                 })
                 .then((res) => {
                   console.log(res); 
+                  if(res){
+                    window.location.reload(false)
+                  }
                 })
                 .catch((err) => {
                   console.log(err.message);

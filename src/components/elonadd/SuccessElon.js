@@ -24,10 +24,10 @@ function SuccessElon() {
               <img src={SuccessImg} className={"img-fluid"} alt="Error!!" />
             </div>
             <h2 className=" mt-4 text-center">E‘lon faollashtirildi</h2>
-            <Link to={"/elon"} className=" mt-4 btn btn-success">
+            <Link to={"/elon"}   className=" mt-4 btn btn-success">
               Yana bitta e‘lon qo‘shish
             </Link>
-            <Link to={"/"} className=" mt-4 btn btn-link">
+            <Link to={"/"}    className=" mt-4 btn btn-link">
               Bosh sahifaga qaytish
             </Link>
           </div>
