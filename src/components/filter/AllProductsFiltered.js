@@ -230,7 +230,33 @@ function AllProductsFiltered() {
             </select>
           </div>
         </div>
-
+                <h3 className="mt-3">Biz, {products
+            .filter((ff) => {
+              if (
+                searchTitle == "" &&
+                searchCategory == "" &&
+                searchZone == "" &&
+                // narxSearch == "" &&
+                // valyutaSearch == "" &&
+                biznesYokiXususiyFilter == ""
+              ) {
+                return ff;
+              } else if (
+                ff.sarlavha.toLowerCase().includes(searchTitle.toLowerCase()) &&
+                ff.joylashuv.toLowerCase().includes(searchZone.toLowerCase()) &&
+                ff.category.toLowerCase().includes(searchCategory.toLowerCase())
+                //   &&
+                // ff.narx.toLowerCase().includes(setNarxSearch.toLowerCase()) &&
+                // ff.valyuta
+                //   .toLowerCase()
+                //   .includes(setValyutaSearch.toLowerCase()) &&
+                // ff.xususiyYokiBiznes
+                //   .toLowerCase()
+                //   .includes(setBiznesYokiXususiyFilter.toLowerCase())
+              ) {
+                return ff;
+              }
+            }).length} ta e'lon topdik</h3>
         <div className="d-flex align-items-center mt-4 mb-4 ">
           <div className="mar-r">Ro'yxat ko'rishi:</div>
           <button
@@ -261,6 +287,37 @@ function AllProductsFiltered() {
               Tozalash
             </button>
         </div>
+        {products
+            .filter((ff) => {
+              if (
+                searchTitle == "" &&
+                searchCategory == "" &&
+                searchZone == "" &&
+                // narxSearch == "" &&
+                // valyutaSearch == "" &&
+                biznesYokiXususiyFilter == ""
+              ) {
+                return ff;
+              } else if (
+                ff.sarlavha.toLowerCase().includes(searchTitle.toLowerCase()) &&
+                ff.joylashuv.toLowerCase().includes(searchZone.toLowerCase()) &&
+                ff.category.toLowerCase().includes(searchCategory.toLowerCase())
+                //   &&
+                // ff.narx.toLowerCase().includes(setNarxSearch.toLowerCase()) &&
+                // ff.valyuta
+                //   .toLowerCase()
+                //   .includes(setValyutaSearch.toLowerCase()) &&
+                // ff.xususiyYokiBiznes
+                //   .toLowerCase()
+                //   .includes(setBiznesYokiXususiyFilter.toLowerCase())
+              ) {
+                return ff;
+              }
+            }).length === 0 ? (
+            <div className="mt-5 mb-5 d-flex align-items-center justify-content-center flex-column">
+               <h2>E'lonlar topilmadi</h2>
+            </div>
+          ) : null}
         <div
           className={`row   cardkorinishida ${royxat === 1 ? "" : "d-none"}`}
         >

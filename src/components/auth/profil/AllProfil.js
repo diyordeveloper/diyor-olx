@@ -20,12 +20,12 @@ import Likes from "../../products/cardOpen/filtered/Likes";
 function AllProfil() {
   const navigate = useNavigate();
   const {
-    onCardItemClick, 
-    products,  
-    setSearchCategory,  
+    onCardItemClick,
+    products,
+    setSearchCategory,
     searchCategory,
-    searchTitle, 
-    setSearchTitle,  
+    searchTitle,
+    setSearchTitle,
 
     ClearCategory,
     users,
@@ -100,9 +100,8 @@ function AllProfil() {
           <small>
             Biz{" "}
             {
-              products
-              .filter((ff) => {
-            if (searchTitle == "" &&searchCategory == "") {
+              products.filter((ff) => {
+                if (searchTitle == "" && searchCategory == "") {
                   return ff.name === name && ff.email === email;
                 } else if (
                   ff.sarlavha
@@ -155,19 +154,35 @@ function AllProfil() {
               <option value="Xobbi, sport">Xobbi, sport</option>
             </select>
             <button
-            disabled={!searchTitle&&!searchCategory}
+              disabled={!searchTitle && !searchCategory}
               className="btn btn-danger btn-sm mar-l "
-                onClick={ClearCategory}
+              onClick={ClearCategory}
             >
               Tozalash
             </button>
           </div>
+
+          {products.filter((ff) => {
+            if (searchTitle == "" && searchCategory == "") {
+              return ff.name === name && ff.email === email;
+            } else if (
+              ff.sarlavha.toLowerCase().includes(searchTitle.toLowerCase()) &&
+              ff.category.toLowerCase().includes(searchCategory.toLowerCase())
+            ) {
+              return ff.name === name && ff.email === email;
+            }
+          }).length === 0 ? (
+            <div className="mt-5 mb-5 d-flex align-items-center justify-content-center flex-column">
+               <h2>E'lonlar topilmadi</h2>
+            </div>
+          ) : null}
+
           <div
             className={`row   cardkorinishida ${royxat === 1 ? "" : "d-none"}`}
           >
             {products
               .filter((ff) => {
-            if (searchTitle == "" &&searchCategory == "") {
+                if (searchTitle == "" && searchCategory == "") {
                   return ff.name === name && ff.email === email;
                 } else if (
                   ff.sarlavha
@@ -249,7 +264,7 @@ function AllProfil() {
           >
             {products
               .filter((ff) => {
-                if (searchTitle == ""&&searchCategory == "") {
+                if (searchTitle == "" && searchCategory == "") {
                   return ff.name === name && ff.email === email;
                 } else if (
                   ff.sarlavha
