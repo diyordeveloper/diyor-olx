@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, Link, useParams } from "react-router-dom";
+import { useNavigate, Link, useParams, useLocation } from "react-router-dom";
 import { IconButton } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { toast } from "react-toastify";
@@ -14,9 +14,11 @@ import Moment from "react-moment";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import AttachMoneyOutlinedIcon from "@mui/icons-material/AttachMoneyOutlined";
-
+import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
+import CheckIcon from "@mui/icons-material/Check";
 import "./allprofils.scss";
 import Likes from "../../products/cardOpen/filtered/Likes";
+import CopyToClipboard from "react-copy-to-clipboard";
 function AllProfil() {
   const navigate = useNavigate();
   const {
@@ -32,6 +34,14 @@ function AllProfil() {
   } = useUserContext();
   let { name, email } = useParams();
   const [royxat, setRoyxat] = useState(1);
+  const location = useLocation();
+
+  const [copyValue, setCopyValue] = useState(location.pathname);
+  const [copy, setCopy] = useState(false);
+  function CopyToggle() {
+    setCopy(true);
+    toast.success("URL manzil nusxalandi");
+  }
   return (
     <NavFot>
       {users
@@ -117,6 +127,26 @@ function AllProfil() {
             }{" "}
             ta e'lon topdik
           </small>
+          <strong className="mt-3">Profilni tarqatish</strong>
+          <div className="d-flex align-items-center">
+                    <input
+                      type="text"
+                      className="form-control-sm mar-r "
+                      onChange={(e) => setCopyValue(e.target.value)}
+                      value={"https://diyor-olx.vercel.app" + copyValue}
+                    />
+                    <CopyToClipboard
+                      text={"https://diyor-olx.vercel.app" + copyValue}
+                    >
+                      <button
+                        disabled={copy === true}
+                        onClick={CopyToggle}
+                        className="btn btn-success btn-sm "
+                      >
+                        {copy === true ? <CheckIcon /> : <ShareOutlinedIcon />}
+                      </button>
+                    </CopyToClipboard>
+                  </div>
         </div>
         <div className="col-9">
           <div className="d-flex align-items-center mb-2">

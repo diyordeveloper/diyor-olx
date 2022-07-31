@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useNavigate, Link, useParams } from "react-router-dom";
+import { useNavigate, Link, useParams, useLocation } from "react-router-dom";
 import { IconButton } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
@@ -8,8 +8,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { auth, db, storage } from "../../../firebase.config";
 
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
-import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
-import AttachMoneyOutlinedIcon from "@mui/icons-material/AttachMoneyOutlined";
+import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined"; 
 import "./profil.scss";
 import { toast } from "react-toastify";
 import { useUserContext } from "../../../Contexts/Context";
@@ -27,7 +26,11 @@ import Likes from "../../products/cardOpen/filtered/Likes";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import EditIcon from "@mui/icons-material/Edit";
 import SuccessImg from "../../../assets/backround/Success.png";
+import AttachMoneyOutlinedIcon from "@mui/icons-material/AttachMoneyOutlined";
+import CheckIcon from "@mui/icons-material/Check";
+import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import Confetti from "react-confetti";
+import CopyToClipboard from "react-copy-to-clipboard";
 function Profil() {
   const {} = useUserContext();
   const { user, currentUser, logout, uid } = useAuthContext();
@@ -42,7 +45,7 @@ function Profil() {
     ClearCategory,
     users,
   } = useUserContext();
-
+  const location = useLocation();
   const navigate = useNavigate();
   const filePickerRef = useRef(null);
   const filePickerRef2 = useRef(null);
@@ -54,7 +57,12 @@ function Profil() {
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
   const [menu, setMenu] = useState(1);
-
+  const [copyValue, setCopyValue] = useState(location.pathname);
+  const [copy, setCopy] = useState(false);
+  function CopyToggle() {
+    setCopy(true);
+    toast.success("URL manzil nusxalandi");
+  }
   const handleChangeImagess = (e) => {
     let selectedFile = e.target.files[0];
     if (selectedFile) {
@@ -368,6 +376,26 @@ function Profil() {
               }{" "}
               ta e'lon topdik
             </small>
+            <strong className="mt-3">Profilimni tarqatish</strong>
+          <div className="d-flex align-items-center">
+                    <input
+                      type="text"
+                      className="form-control-sm mar-r "
+                      onChange={(e) => setCopyValue(e.target.value)}
+                      value={"https://diyor-olx.vercel.app" + copyValue}
+                    />
+                    <CopyToClipboard
+                      text={"https://diyor-olx.vercel.app" + copyValue}
+                    >
+                      <button
+                        disabled={copy === true}
+                        onClick={CopyToggle}
+                        className="btn btn-success btn-sm "
+                      >
+                        {copy === true ? <CheckIcon /> : <ShareOutlinedIcon />}
+                      </button>
+                    </CopyToClipboard>
+                  </div>
           </div>
           <div className="col-9">
             <div className="d-flex align-items-center mb-2">

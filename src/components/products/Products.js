@@ -8,7 +8,7 @@ import AttachMoneyOutlinedIcon from "@mui/icons-material/AttachMoneyOutlined";
 import Likes from "../products/cardOpen/filtered/Likes";
 import "./products.scss";
 function Products() {
-  const { products, onCardItemClick, searchTitle, searchZone } =
+  const { products, onCardItemClick,   } =
     useUserContext();
 
   return (
@@ -16,17 +16,7 @@ function Products() {
       <h2 className="text-center">Hamma Elonlar</h2>
       <div className="row mt-4">
         {products
-          .filter((ff) => {
-            if (searchTitle == ""&&searchZone == '') {
-              return ff;
-            } else if (
-              ff.sarlavha.toLowerCase().includes(searchTitle.toLowerCase()) &&
-              ff.category.toLowerCase().includes(searchTitle.toLowerCase()) &&
-              ff.joylashuv.toLowerCase().includes(searchZone.toLowerCase())
-            ) {
-              return ff;
-            }
-          })
+         
           .map((itm, idx) => (
             <div className="col-3 mt-2  " key={idx}>
               <div className="card  ">

@@ -17,7 +17,7 @@ import { db } from "../../../firebase.config";
 import "./navbar.scss";
 function Navbar() {
   const navigate = useNavigate();
-  const { ClearCategory } = useUserContext();
+  const { ClearCategory,products } = useUserContext();
   const { user, currentUser, logout, uid } = useAuthContext();
   function OnBtn() {
     if (uid !== null) {
@@ -90,6 +90,23 @@ function Navbar() {
                   }`}
                 >
                   <PersonIcon className="icon_" /> Profilim
+                </Link>{" "}
+              </DropdownItem>
+              <DropdownItem>
+                <Link
+                  className="btn btn-link  text_dec_none"
+                  to={`${
+                    uid !== null
+                      ? `/profilim/${user?.name}/${user?.email}`
+                      : "/register"
+                  }`}
+                >
+                  E'lonlarim{" "}
+                  {
+                    products.filter(
+                      (ff) => ff.name === user?.name && ff.email === user?.email
+                    ).length
+                  }
                 </Link>{" "}
               </DropdownItem>
               <DropdownItem divider />

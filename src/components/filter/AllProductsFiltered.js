@@ -47,31 +47,14 @@ function AllProductsFiltered() {
     searchZone,
     setSearchZone,
   } = useUserContext();
-  function Clearr(){
-    ClearCategory()
-    setSearchCategory('')
+  function Clearr() {
+    ClearCategory();
+    setSearchCategory("");
   }
   return (
     <>
       <NavFot>
-        <div className="  d-flex justify-content-between align-items-center mt-4 mt-4">
-          <SearchIcon />
-          <input
-            type={"search"}
-            className="form-control  pt-2 pb-2"
-            placeholder={`Nimani qidirayapsiz ?`}
-            onChange={(e) => setSearchTitle(e.target.value)}
-            value={searchTitle}
-          />
-          <LocationOnOutlinedIcon />
-          <input
-            type={"search"}
-            className="form-control pt-2 pb-2"
-            placeholder={`Butun O'zbekiston`}
-            onChange={(e) => setSearchZone(e.target.value)}
-            value={searchZone}
-          />
-        </div>
+        <FilterSearch />
         <div className="row mt-2">
           <h3>Filterlar</h3>
           <div className="d-flex align-items-center ">
@@ -176,17 +159,53 @@ function AllProductsFiltered() {
                   {" ta "}
                 </option>
               </select>
-              
             </div>
 
-            <div className="mar-r">
+            <div className="mar-r position-relative">
               <label htmlFor="Narxchik">Narx*</label>
               <input
                 type={"search"}
                 onChange={(e) => setNarxSearch(e.target.value)}
                 value={narxSearch}
-                className="form-control"
+                className="form-control  "
               />
+              <ul
+                className="list-group   "
+                style={{
+                  position: "absolute",
+                  left: "0px",
+                  right: "0px",
+                  top: "65px",
+                }}
+              >
+                {narxSearch.length === 0 ? null : (
+                  <>
+                    {products
+                      .filter((ff) => {
+                        if (narxSearch == "") {
+                          return ff;
+                        } else if (
+                          ff.narx
+                            .toLowerCase()
+                            .includes(narxSearch.toLowerCase())
+                        ) {
+                          return ff;
+                        }
+                      })
+                      .map((itm, idx) => (
+                        <Link
+                          onClick={() => onCardItemClick(itm)}
+                          to={`/card/${itm.category}/${itm.name}/${itm.ID}`}
+                          key={idx}
+                          className="list-group-item list-group-item-action list-group-item-light"
+                        >
+                          <small>{itm.narx} </small>
+                          <small>{itm.valyuta} </small>
+                        </Link>
+                      ))}
+                  </>
+                )}
+              </ul>
             </div>
             <div className="mar-r">
               <label htmlFor="Soooom">Valyuta *</label>
@@ -230,33 +249,39 @@ function AllProductsFiltered() {
             </select>
           </div>
         </div>
-                <h3 className="mt-3">Biz, {products
-            .filter((ff) => {
+        <h3 className="mt-3">
+          Biz,{" "}
+          {
+            products.filter((ff) => {
               if (
                 searchTitle == "" &&
                 searchCategory == "" &&
                 searchZone == "" &&
-                // narxSearch == "" &&
-                // valyutaSearch == "" &&
+                narxSearch == "" &&
+                valyutaSearch == "" &&
                 biznesYokiXususiyFilter == ""
               ) {
                 return ff;
               } else if (
                 ff.sarlavha.toLowerCase().includes(searchTitle.toLowerCase()) &&
                 ff.joylashuv.toLowerCase().includes(searchZone.toLowerCase()) &&
-                ff.category.toLowerCase().includes(searchCategory.toLowerCase())
-                //   &&
-                // ff.narx.toLowerCase().includes(setNarxSearch.toLowerCase()) &&
-                // ff.valyuta
-                //   .toLowerCase()
-                //   .includes(setValyutaSearch.toLowerCase()) &&
-                // ff.xususiyYokiBiznes
-                //   .toLowerCase()
-                //   .includes(setBiznesYokiXususiyFilter.toLowerCase())
+                ff.category
+                  .toLowerCase()
+                  .includes(searchCategory.toLowerCase()) &&
+                ff.narx.toLowerCase().includes(narxSearch.toLowerCase()) &&
+                ff.valyuta
+                  .toLowerCase()
+                  .includes(valyutaSearch.toLowerCase()) &&
+                ff.xususiyYokiBiznes
+                  .toLowerCase()
+                  .includes(biznesYokiXususiyFilter.toLowerCase())
               ) {
                 return ff;
               }
-            }).length} ta e'lon topdik</h3>
+            }).length
+          }{" "}
+          ta e'lon topdik
+        </h3>
         <div className="d-flex align-items-center mt-4 mb-4 ">
           <div className="mar-r">Ro'yxat ko'rishi:</div>
           <button
@@ -276,48 +301,46 @@ function AllProductsFiltered() {
             <ViewListIcon />
           </button>
           <button
-            disabled={!searchTitle&&!searchCategory
-            &&!searchZone
-            &&!narxSearch
-            &&!valyutaSearch
+            disabled={
+              !searchTitle &&
+              !searchCategory &&
+              !searchZone &&
+              !narxSearch &&
+              !valyutaSearch
             }
-              className="btn btn-danger  mar-l "
-                onClick={Clearr}
-            >
-              Tozalash
-            </button>
+            className="btn btn-danger  mar-l "
+            onClick={Clearr}
+          >
+            Tozalash
+          </button>
         </div>
-        {products
-            .filter((ff) => {
-              if (
-                searchTitle == "" &&
-                searchCategory == "" &&
-                searchZone == "" &&
-                // narxSearch == "" &&
-                // valyutaSearch == "" &&
-                biznesYokiXususiyFilter == ""
-              ) {
-                return ff;
-              } else if (
-                ff.sarlavha.toLowerCase().includes(searchTitle.toLowerCase()) &&
-                ff.joylashuv.toLowerCase().includes(searchZone.toLowerCase()) &&
-                ff.category.toLowerCase().includes(searchCategory.toLowerCase())
-                //   &&
-                // ff.narx.toLowerCase().includes(setNarxSearch.toLowerCase()) &&
-                // ff.valyuta
-                //   .toLowerCase()
-                //   .includes(setValyutaSearch.toLowerCase()) &&
-                // ff.xususiyYokiBiznes
-                //   .toLowerCase()
-                //   .includes(setBiznesYokiXususiyFilter.toLowerCase())
-              ) {
-                return ff;
-              }
-            }).length === 0 ? (
-            <div className="mt-5 mb-5 d-flex align-items-center justify-content-center flex-column">
-               <h2>E'lonlar topilmadi</h2>
-            </div>
-          ) : null}
+        {products.filter((ff) => {
+          if (
+            searchTitle == "" &&
+            searchCategory == "" &&
+            searchZone == "" &&
+            narxSearch == "" &&
+            valyutaSearch == "" &&
+            biznesYokiXususiyFilter == ""
+          ) {
+            return ff;
+          } else if (
+            ff.sarlavha.toLowerCase().includes(searchTitle.toLowerCase()) &&
+            ff.joylashuv.toLowerCase().includes(searchZone.toLowerCase()) &&
+            ff.category.toLowerCase().includes(searchCategory.toLowerCase()) &&
+            ff.narx.toLowerCase().includes(narxSearch.toLowerCase()) &&
+            ff.valyuta.toLowerCase().includes(valyutaSearch.toLowerCase()) &&
+            ff.xususiyYokiBiznes
+              .toLowerCase()
+              .includes(biznesYokiXususiyFilter.toLowerCase())
+          ) {
+            return ff;
+          }
+        }).length === 0 ? (
+          <div className="mt-5 mb-5 d-flex align-items-center justify-content-center flex-column">
+            <h2>E'lonlar topilmadi</h2>
+          </div>
+        ) : null}
         <div
           className={`row   cardkorinishida ${royxat === 1 ? "" : "d-none"}`}
         >
@@ -327,23 +350,24 @@ function AllProductsFiltered() {
                 searchTitle == "" &&
                 searchCategory == "" &&
                 searchZone == "" &&
-                // narxSearch == "" &&
-                // valyutaSearch == "" &&
+                narxSearch == "" &&
+                valyutaSearch == "" &&
                 biznesYokiXususiyFilter == ""
               ) {
                 return ff;
               } else if (
                 ff.sarlavha.toLowerCase().includes(searchTitle.toLowerCase()) &&
                 ff.joylashuv.toLowerCase().includes(searchZone.toLowerCase()) &&
-                ff.category.toLowerCase().includes(searchCategory.toLowerCase())
-                //   &&
-                // ff.narx.toLowerCase().includes(setNarxSearch.toLowerCase()) &&
-                // ff.valyuta
-                //   .toLowerCase()
-                //   .includes(setValyutaSearch.toLowerCase()) &&
-                // ff.xususiyYokiBiznes
-                //   .toLowerCase()
-                //   .includes(setBiznesYokiXususiyFilter.toLowerCase())
+                ff.category
+                  .toLowerCase()
+                  .includes(searchCategory.toLowerCase()) &&
+                ff.narx.toLowerCase().includes(narxSearch.toLowerCase()) &&
+                ff.valyuta
+                  .toLowerCase()
+                  .includes(valyutaSearch.toLowerCase()) &&
+                ff.xususiyYokiBiznes
+                  .toLowerCase()
+                  .includes(biznesYokiXususiyFilter.toLowerCase())
               ) {
                 return ff;
               }
@@ -416,23 +440,24 @@ function AllProductsFiltered() {
                 searchTitle == "" &&
                 searchCategory == "" &&
                 searchZone == "" &&
-                // narxSearch == "" &&
-                // valyutaSearch == "" &&
+                narxSearch == "" &&
+                valyutaSearch == "" &&
                 biznesYokiXususiyFilter == ""
               ) {
                 return ff;
               } else if (
                 ff.sarlavha.toLowerCase().includes(searchTitle.toLowerCase()) &&
                 ff.joylashuv.toLowerCase().includes(searchZone.toLowerCase()) &&
-                ff.category.toLowerCase().includes(searchCategory.toLowerCase())
-                //   &&
-                // ff.narx.toLowerCase().includes(setNarxSearch.toLowerCase()) &&
-                // ff.valyuta
-                //   .toLowerCase()
-                //   .includes(setValyutaSearch.toLowerCase()) &&
-                // ff.xususiyYokiBiznes
-                //   .toLowerCase()
-                //   .includes(setBiznesYokiXususiyFilter.toLowerCase())
+                ff.category
+                  .toLowerCase()
+                  .includes(searchCategory.toLowerCase()) &&
+                ff.narx.toLowerCase().includes(narxSearch.toLowerCase()) &&
+                ff.valyuta
+                  .toLowerCase()
+                  .includes(valyutaSearch.toLowerCase()) &&
+                ff.xususiyYokiBiznes
+                  .toLowerCase()
+                  .includes(biznesYokiXususiyFilter.toLowerCase())
               ) {
                 return ff;
               }
