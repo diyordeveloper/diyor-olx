@@ -21,6 +21,7 @@ import Favorites from "./components/favorites/Favorites";
 import AllProfil from "./components/auth/profil/AllProfil";
 import NotFound404 from "./components/404/NotFound404";
 import AllProductsFiltered from "./components/filter/AllProductsFiltered";
+import SuccessElon from "./components/elonadd/SuccessElon";
 function App() {
   return (
     <div className="container">
@@ -40,6 +41,7 @@ function App() {
               />
               <Route element={<AllCard />} path="/card/:category/:name/:ID" />
               <Route element={<Elon />} path="/elon" />
+              <Route element={<SuccessElon />} path="/elonsuccessfuly" />
               <Route element={<Favorites />} path="/favorites" />
               <Route element={<NotFound404 />} path="*" />
             </Routes>

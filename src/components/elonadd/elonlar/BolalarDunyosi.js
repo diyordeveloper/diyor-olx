@@ -101,17 +101,13 @@ function BolalarDunyosi() {
                   url,
                 })
                 .then((res) => {
-                  console.log(res);
-                  toast.success("Muvaffaqqiyatli qo'shildi !");
-                  if (res) {
-                    window.location.reload(true);
-                  }
+                  console.log(res); 
                 })
                 .catch((err) => {
                   console.log(err.message);
                 });
               setLoader(false);
-              navigate("/");
+              navigate("/elonsuccessfuly");
             });
         }
       );
