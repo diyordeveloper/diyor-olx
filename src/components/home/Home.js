@@ -43,23 +43,40 @@ function Home() {
       // }, 1000);
     }
   });
-  // const [delay, setDelay] = useState(true); //default holatda loader ko'rinadi
+  const [delay, setDelay] = useState(true); //default holatda loader ko'rinadi
 
-  // useEffect(() => {
-  //   setDelay(true);
-  //   setTimeout(() => {
-  //     setDelay(false); //5s sekundan keyin loader o'chadi false qiymatga o'tadi
-  //   }, 2000); //5s loader aylanishi
-  // }, [products]);
+  useEffect(() => {
+    setDelay(true);
+    setTimeout(() => {
+      setDelay(false); //5s sekundan keyin loader o'chadi false qiymatga o'tadi
+    }, 2000); //5s loader aylanishi
+  }, [products]);
   return (
     <>
-      {products && products.length === 0 ? (
+      {products && delay ? (
         <Loading />
       ) : (
         <div className="row">
           <NavFot>
+            <Alert severity="warning">
+              <strong>
+                E’tibor bering, DiyorOLX - da yetkazib berish xizmati mavjud
+                emas
+              </strong>
+              <br />
+              <small>
+                Eng muhimi, hech qachon bank kartangiz maxfiy raqamini hech
+                kimga bermang.{" "}
+                <a
+                  className="text-dark"
+                  href="https://help.olx.uz/hc/ru/articles/360013813097-Xavfsizlik-to-g-risida-umumiy-ma-lumot-"
+                >
+                  Internetda xavfsiz xarid qilishni bilib oling
+                </a>
+              </small>
+            </Alert>
             {uid !== null ? null : (
-              <Alert severity="error">
+              <Alert severity="error" className="mt-2">
                 {" "}
                 E'lon joylashtirish uchun ro'yxatdan o'tishingiz kerak.
                 <Link to="/login" className="mar-l">

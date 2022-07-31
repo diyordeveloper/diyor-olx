@@ -464,11 +464,16 @@ function CardFilter({ ID, location, category, cardArr, name, email }) {
                   </div>
                 </div>
               </div>
-              <Comment itm={cardArr} />
+              {
+                cardArr.name === user?.name && cardArr.email === user?.email ?
+              null: <Comment itm={cardArr} />
+                
+              }
             </div>
             <div className="col-5">
               <div className="user">
-                <h5>Foydalanuvchi</h5>
+                <h5>{ cardArr.name === user?.name && cardArr.email === user?.email ? "Bu sizning e'loningiz":"Foydalanuvchi"}</h5>
+              <hr />
                 {users
                   .filter(
                     (filter) => filter.name === name || filter.email === email

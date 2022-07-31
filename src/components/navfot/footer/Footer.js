@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 function Footer() {
   return (
-    <div className="col-12 mt-5">
+    <div className="col-12  " style={{margin:"200px 0 0 0 "}}>
       <hr />
       <h2
         className="text-center
