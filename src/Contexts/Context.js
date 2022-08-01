@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { auth, db } from "../firebase.config";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -30,10 +36,10 @@ export function Context({ children }) {
   // hamma productlarni olib kelish
   const [products, setProducts] = useState([]);
   const getProducts = async () => {
-    const products = await db.collection("allproducts")
- 
+    const products = await db
+      .collection("allproducts")
 
-    .get();
+      .get();
     const productsArray = [];
     for (var snap of products.docs) {
       var data = snap.data();
@@ -96,6 +102,22 @@ export function Context({ children }) {
     setValyutaSearch("");
     setBiznesYokiXususiyFilter("");
   };
+  // Modal Document
+  const [showModal, setShowModal] = useState(false);
+  function ToggleModalopen() {
+    setShowModal(true);
+  }
+  function ToggleModalClose() {
+    setShowModal(false);
+  }
+  const [audioOne, setAudioOne] = useState(false);
+ 
+  function Audio1ToggleOn() {
+    setAudioOne(true); 
+  }
+  function Audio1ToggleOff() {
+    setAudioOne(false); 
+  }
 
   const AllFunction = {
     products,
@@ -117,6 +139,14 @@ export function Context({ children }) {
     onCardItemClick,
     ClearCategory,
     //
+    ToggleModalopen,
+    ToggleModalClose,
+    showModal,
+    setShowModal,
+    // Audio
+    Audio1ToggleOn,
+    Audio1ToggleOff,
+    audioOne, 
   };
   return (
     <UserContext.Provider value={AllFunction}>{children}</UserContext.Provider>

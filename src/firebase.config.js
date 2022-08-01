@@ -5,13 +5,13 @@ import "firebase/firestore";
 import "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDUpqmeJwPIY6QtSyZJCSScyR5TOMDEzLg",
-  authDomain: "diyor-olx-509bd.firebaseapp.com",
-  projectId: "diyor-olx-509bd",
-  storageBucket: "diyor-olx-509bd.appspot.com",
-  messagingSenderId: "821182060752",
-  appId: "1:821182060752:web:799dec4dbdc66489fae6d5",
-  measurementId: "G-H3PKY550Q2",
+  apiKey: "AIzaSyDRy3pNAq33ocedRGyGGA2Hq-9v6eC-8iA",
+  authDomain: "diyor-olx-4ec90.firebaseapp.com",
+  projectId: "diyor-olx-4ec90",
+  storageBucket: "diyor-olx-4ec90.appspot.com",
+  messagingSenderId: "552385299784",
+  appId: "1:552385299784:web:93d18485274b4315681f7d",
+  measurementId: "G-013B7CQC6Q"
 };
 
 // Initialize Firebase
