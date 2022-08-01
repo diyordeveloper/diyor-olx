@@ -22,6 +22,7 @@ import AllProfil from "./components/auth/profil/AllProfil";
 import NotFound404 from "./components/404/NotFound404";
 import AllProductsFiltered from "./components/filter/AllProductsFiltered";
 import SuccessElon from "./components/elonadd/SuccessElon";
+import Alanai from "./Alanai";
 function App() {
   return (
     <div className="container">
@@ -29,6 +30,7 @@ function App() {
         <ToastContainer />
         <Context>
           <AuthContextUser>
+            <Alanai/>
             <Routes>
               <Route index element={<Home />} path="/" />
               <Route element={<Login />} path="/login" />
