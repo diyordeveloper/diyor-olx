@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useUserContext } from "../../../Contexts/Context";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
@@ -47,11 +47,15 @@ function Navbar() {
   useEffect(() => {
     getLikesLen();
   });
+   
+
   return (
     <nav className="navbar border-bottom  navbar-light bg-light justify-content-between mar-l mar-r ">
       <Link to="/" className="navbar-brand" onClick={ClearCategory}>
         <h2 className="logo_">DiyorOLX</h2>
       </Link>
+       
+
       <div className="d-flex justify-content-between align-items-center">
         <Link
           className="text_dec_none     mar-r

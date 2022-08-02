@@ -1,18 +1,31 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useUserContext } from "../Contexts/Context";
 import Modal from "react-bootstrap/Modal";
 import NavFot from "../components/navfot/NavFot";
 import Audio1 from "./audio/salom.ogg";
-import Audio2 from "./audio/audioo1.ogg";
+import Audio2 from "./audio/audio1.ogg";
 function ModalDocumentation() {
   const {} = useUserContext();
 
+  const RefAudioOne = useRef();
+  const [audioOne, setAudioOne] = useState(true);
+   
+  useEffect(() => {
+    if (audioOne) {
+      setTimeout(() => {
+        RefAudioOne.current.play();
+      }, 5000);
+    } else {
+      RefAudioOne.current.pause();
+    }
+  }, [audioOne]);
+ 
   return (
     <NavFot>
       <div className="row mt-2">
         <h2 className="text-center">Yordamchi mikrofon yo'riqnomasi</h2>
         <div className="col-12">
-          <audio src={Audio1} controls />
+          <audio ref={RefAudioOne} src={Audio1} controls />
           <audio src={Audio2} controls />
           <hr />
         </div>
@@ -48,7 +61,7 @@ function ModalDocumentation() {
             6: register - Ro'yxatdan o'tish sahifasiga olib o'tadi
           </strong>
           <strong>7: login - Kirish sahifasiga olib o'tadi</strong>
-          <strong>8: logout - saytdan chiqarib yuboradi</strong>
+          <strong>8: logout - Akkountdan chiqish</strong>
           <strong>9: reload - saytni yangilaydi {" ( refresh ) "}</strong>
         </div>
       </div>
