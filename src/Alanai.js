@@ -18,21 +18,19 @@ function Alanai() {
   function ReloadPage() {
     window.location.reload();
   }
-   
-   
 
   useEffect(() => {
     alanBtn({
-      key: "8c0e5f03ccb3a0add16b728e3cf15f432e956eca572e1d8b807a3e2338fdd0dc/stage",
+      key: "1e40013288dcb0e4d16b728e3cf15f432e956eca572e1d8b807a3e2338fdd0dc/stage",
       onCommand: (commandData) => {
         if (commandData.command === "OpenProfil") {
           navigate(`/profilim/${user?.name}/${user?.email}`);
         }
         if (commandData.command === "OpenFavorites") {
-          navigate(`/favorites`); 
+          navigate(`/favorites`);
         }
         if (commandData.command === "ElonAdd") {
-          navigate(`/elon`); 
+          navigate(`/elon`);
         }
         if (commandData.command === "GoBackHomePage") {
           navigate(`/`);
