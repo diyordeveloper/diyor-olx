@@ -9,7 +9,7 @@ function ModalDocumentation() {
 
   const RefAudioOne = useRef();
   const [audioOne, setAudioOne] = useState(true);
-   
+
   useEffect(() => {
     if (audioOne) {
       setTimeout(() => {
@@ -19,7 +19,7 @@ function ModalDocumentation() {
       RefAudioOne.current.pause();
     }
   }, [audioOne]);
- 
+
   return (
     <NavFot>
       <div className="row mt-2">
@@ -38,7 +38,7 @@ function ModalDocumentation() {
           <strong>5: speak uzbek?</strong>
           <strong>6: good job </strong>
           <strong>7: wery good </strong>
-          <strong>8: are you wrong </strong>
+          <strong>8: you are wrong </strong>
           <strong>9: are you ready </strong>
           <hr />
           <strong>1: home page | back | go back - bosh sahifaga qaytish</strong>
