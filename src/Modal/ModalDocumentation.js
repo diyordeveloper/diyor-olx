@@ -40,6 +40,7 @@ function ModalDocumentation() {
           <strong>7: wery good </strong>
           <strong>8: you are wrong </strong>
           <strong>9: are you ready </strong>
+          <strong>10: gapir </strong>
           <hr />
           <strong>1: home page | back | go back - bosh sahifaga qaytish</strong>
           <strong>
