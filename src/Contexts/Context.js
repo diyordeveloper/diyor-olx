@@ -103,21 +103,6 @@ export function Context({ children }) {
     setBiznesYokiXususiyFilter("");
   };
   // Modal Document
-  const [showModal, setShowModal] = useState(false);
-  function ToggleModalopen() {
-    setShowModal(true);
-  }
-  function ToggleModalClose() {
-    setShowModal(false);
-  }
-  const [audioOne, setAudioOne] = useState(false);
- 
-  function Audio1ToggleOn() {
-    setAudioOne(true); 
-  }
-  function Audio1ToggleOff() {
-    setAudioOne(false); 
-  }
 
   const AllFunction = {
     products,
@@ -139,14 +124,7 @@ export function Context({ children }) {
     onCardItemClick,
     ClearCategory,
     //
-    ToggleModalopen,
-    ToggleModalClose,
-    showModal,
-    setShowModal,
     // Audio
-    Audio1ToggleOn,
-    Audio1ToggleOff,
-    audioOne, 
   };
   return (
     <UserContext.Provider value={AllFunction}>{children}</UserContext.Provider>

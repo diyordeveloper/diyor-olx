@@ -8,7 +8,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { auth, db, storage } from "../../../firebase.config";
 
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
-import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined"; 
+import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import "./profil.scss";
 import { toast } from "react-toastify";
 import { useUserContext } from "../../../Contexts/Context";
@@ -227,7 +227,15 @@ function Profil() {
           Confettti();
         });
   }
-
+  function Profilchik() {
+    useEffect(() => {
+      if (uid === null) {
+        navigate("/register");
+        toast.warning("Ro'yxatdan o'tmagansiz");
+      }
+    }, [uid]);
+  }
+  Profilchik();
   return (
     <NavFot>
       <>
@@ -377,25 +385,25 @@ function Profil() {
               ta e'lon topdik
             </small>
             <strong className="mt-3">Profilimni tarqatish</strong>
-          <div className="d-flex align-items-center">
-                    <input
-                      type="text"
-                      className="form-control-sm mar-r "
-                      onChange={(e) => setCopyValue(e.target.value)}
-                      value={"https://diyor-olx.vercel.app" + copyValue}
-                    />
-                    <CopyToClipboard
-                      text={"https://diyor-olx.vercel.app" + copyValue}
-                    >
-                      <button
-                        disabled={copy === true}
-                        onClick={CopyToggle}
-                        className="btn btn-success btn-sm "
-                      >
-                        {copy === true ? <CheckIcon /> : <ShareOutlinedIcon />}
-                      </button>
-                    </CopyToClipboard>
-                  </div>
+            <div className="d-flex align-items-center">
+              <input
+                type="text"
+                className="form-control-sm mar-r "
+                onChange={(e) => setCopyValue(e.target.value)}
+                value={"https://diyor-olx.vercel.app" + copyValue}
+              />
+              <CopyToClipboard
+                text={"https://diyor-olx.vercel.app" + copyValue}
+              >
+                <button
+                  disabled={copy === true}
+                  onClick={CopyToggle}
+                  className="btn btn-success btn-sm "
+                >
+                  {copy === true ? <CheckIcon /> : <ShareOutlinedIcon />}
+                </button>
+              </CopyToClipboard>
+            </div>
           </div>
           <div className="col-9">
             <div className="d-flex align-items-center mb-2">

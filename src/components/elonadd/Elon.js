@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useUserContext } from "../../Contexts/Context";
 import "./Elon.scss";
 import BolalarDunyosi from "./elonlar/BolalarDunyosi";
@@ -55,6 +55,15 @@ function Elon() {
     setCateItm(arr);
     console.log(arr);
   }
+  function Elonchik() {
+    useEffect(() => {
+      if (uid === null) {
+        navigate("/register");
+        toast.warning("Ro'yxatdan o'tmagansiz");
+      }
+    }, [uid]);
+  }
+  Elonchik();
   return (
     <NavFot>
       <div className="row  ">

@@ -32,7 +32,6 @@ function App() {
         <Context>
           <AuthContextUser>
             <Alanai />
-            <ModalDocumentation />
             <Routes>
               <Route index element={<Home />} path="/" />
               <Route element={<Login />} path="/login" />
@@ -50,6 +49,7 @@ function App() {
               <Route element={<Elon />} path="/elon" />
               <Route element={<SuccessElon />} path="/elonsuccessfuly" />
               <Route element={<Favorites />} path="/favorites" />
+              <Route element={<ModalDocumentation />} path="/yoriqnoma" />
               <Route element={<NotFound404 />} path="*" />
             </Routes>
           </AuthContextUser>

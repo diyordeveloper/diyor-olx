@@ -64,6 +64,15 @@ function Favorites() {
     setRoyxat(2);
     // window.location.reload(false) 
   }
+  function Favoriteschik() {
+    useEffect(() => {
+      if (uid === null) {
+        navigate("/register");
+        toast.warning("Ro'yxatdan o'tmagansiz")
+      }
+    }, [uid]);
+  }
+  Favoriteschik();
   return (
     <NavFot>
       {favorites.length === 0 ? (

@@ -6,7 +6,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useNavigate } from "react-router-dom";
-import KeyboardVoiceIcon from '@mui/icons-material/KeyboardVoice';
+import KeyboardVoiceIcon from "@mui/icons-material/KeyboardVoice";
 import {
   UncontrolledDropdown,
   DropdownToggle,
@@ -18,7 +18,7 @@ import { db } from "../../../firebase.config";
 import "./navbar.scss";
 function Navbar() {
   const navigate = useNavigate();
-  const { ClearCategory,products,Audio1ToggleOn } = useUserContext();
+  const { ClearCategory, products } = useUserContext();
   const { user, currentUser, logout, uid } = useAuthContext();
   function OnBtn() {
     if (uid !== null) {
@@ -53,7 +53,13 @@ function Navbar() {
         <h2 className="logo_">DiyorOLX</h2>
       </Link>
       <div className="d-flex justify-content-between align-items-center">
-        <button  onClick={Audio1ToggleOn}   >Yo'riqnoma {" "}<KeyboardVoiceIcon/>  </button>
+        <Link
+          className="text_dec_none     mar-r
+             "
+          to={"/yoriqnoma"}
+        >
+          <strong>Yo'riqnoma</strong> <KeyboardVoiceIcon />{" "}
+        </Link>
         <Link
           to={`${uid !== null ? "/comment" : "/register"}`}
           className="text_dec_none     mar-r
